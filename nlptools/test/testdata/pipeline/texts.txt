@@ -1,0 +1,95 @@
+### Mixed special cases:
+
+Hello Karl_! :-).
+Are you Dédé ???? ^^ Make 5,5€ or $6.01 with 5 € and 5.5€!!
+I'm not ``sure`` you 're right Bobs' things 'ù4' 999.99 & you're cat $9.9M.
+Check this formula: $x=\frac{1+y}{1+2z^2}$ from aaaaaa@gmail.com	=) <3
+Are u ok ?!?!?.... I' m pretty sure I'm ok***
+WHAT IS ~this~ and ok. Why rabos' thingsœ Are [so cool] and ok. why 一so nice一 ━this━ 一bear一? 一 bear 一 !
+45% $22bn Bill O'Reilly's history of fabricating his recordhttp://youtu.be/UkLFP9xXZqk
+Normalisation… Is a goooood thing colour. r u comming 2mr? Gn!
+Here a strange space 	 wtf  …\xa0this is!!! A strange. Big space: \xa0 and ok.
+
+### HTML and html escape:
+
+impression is [...]<img src= http://feeds.feedburner.com/~r/1800blogger/~4/376679300%22 height= 1  width= 1 /> ok?
+<IMG style= border: navy 1px solid;  src= http://medya.todayszaman.com/todayszaman/2008/09/19/helicopter_k.jpg%22 border= 0  align= left  width= 80  height= 60 />Seven American soldiers
+ee<br>ig ih &amp;
+ee<br/ >ig ih &amp; <a href="https://youtu.be">youtu.be https://youtu.be</a>
+ee<br />ig ih &amp; <> e. <<<<<<p>>>>>
+<li a b=e c='r' 	t="000000�" > WHAT?</ li> <<< ee. You &gt; > r a dummy ****;
+
+### Tweets:
+
+RT @TheMuny: .@mykalkilgore is currently slaying rehearsals for #munymagic at The Sheldon. #home pic.twitter.com/VMeEaKSPrr #fb
+ça m'étonne #balance@toto ! @Karl & @Brown vs Lucy/Smith VERSUS H&M www.opinel.com
+Why \o/ ààààààààààààà .http://youtu.be/89 3.2.3.1: M @YouTube http://youtu.be/ #balancetonpreprocessing. =|
+decided to get rid of him...pic.twitter.com/G6wjgxlFbw
+#YO >_> @toto >>>>>@Test :‑)  	 <<<<<<< http://ToTo.com/54%208&amp;9 #my_url b_r_o.... ( ͡° ͜ʖ ͡°) (͡°͜ʖ͡°) (°͜ʖ͡°) (*≧▽≦) (>_<).
+
+
+### Encoding probs and foreign languages:
+
+Ge uh. uyErt??, hTdf!§hds 4555555 QA+89.......
+You are here: 	ê	ω
+Encoding probs: �<U+0094> <U+0093> " ïṡẄ 	\n ’’’‘ “test”///!
+''test'' \"test\"  UTF-8 DATAé’`ç| \n\r kožušček # \t ♯ « » “ ” „ … ¿ ´ ` ``test´´ ˜ • __ ♥ ‹ < > - - – — _ ¸ ^ ˆ {{angular}} ’ ‘ '  t   ¶ \\ Á
+
+Here I am. 漢字 □. What did YOU MEAN?? (e.g. I got a tea) 
+jR�F����g� ��tY_��:�_�k��Y�8�������
+
+### Markdown text:
+
+I like **Alan Embree** but not **Chad Bradford** (it is not g [i.e. it's not o]). i _mean_ it is not ok.
+
+### URLs and char sequences:
+
+Lol. Convenience,” says @Wharton's @barbarakahn.http://knlg.net/2BkEXm2
+only one url here: https://mobile.nytimes.com/aponline/2018/01/30/us/ap-us-airbnb.html?partner=IFTTT&referer=https://www.google.com/url?q=https://www.nytimes.com/aponline/2018/01/30/us/ap-us-airbnb.html?partner%3DIF !! Here an other, pls don't reduce char sequence in it: ftp://test.com/pppppppppppp http://youtu.be
+
+### Stop words, stemming, lemmatizing and tokenization:
+
+Mr. Smith and Dr. in USA what? U.S.A. with dr. Mac!!! Neymar Jr., is Neymar Jr.. Or is Neymar Jr.
+This. is a strange! Sentence to tokenize? is'nt it ? Hahaaaa;you're right_.
+These sentences are here to test stop words. Particularly when you want to I'm nor didn't knows come anymore. I'll Bob' things you've not awesome? Available RE I test RE: ok. Take off your things and don't myself. He hasnt hasn' t hasn't hasn 't do it properly by me on the only their pretty things of Mr. D.
+Can you lematize cats and dogs likely fairing till' I accepted it? Of course.I'm not ok.
+Google Inc., 20 West Kinzie, Chicago IL USA 60610
+
+
+### All emojis special cases:
+
+:-) These are emojis;) and =) :/ these are not:- I am. -You are. Test:-3 look. These are -_-: but not this one: ^a good.
+😖	😣	😀	ӽ	🙍	¤	¯\_(ツ)_/¯	. Here special cases emoji 👨 :man: :smile: :relaxed: U+1F600 😅 😅
+D‑': 	D:< 	D: 	D8 	D; 	D= 	DX :‑P :P 	X‑P XP 	x‑p xp 	:‑p :p 	:‑Þ :Þ 	:‑þ :þ 	:‑b :b 	d: 	=p 	>:P emojis
+Emojis :‑) :) 	:-]:] 	:-3 :3 	:-> :> 	8-) 8) 	:-} :} 	:o) 	:c) 	:^)
+	=] 	=) 😄  💗 😇 😱 🙅 😤 👋 🌹 🎅 😴 💤 🚬 🎧 🐍 \xF0\x9F\x98\x8C U+1F60C \U+1F60C . All are emojis!
+Here I repeat the emoji  :) :) :) a :) :-) :-) a :-)
+These emojis has chars to be escaped in a regex: :/ :$ :* %) :[ *) . \xF0\x9F\x98\x81 \xE2\x9C\x82 ✂ ✂ \xF0\x9F\x9A\x9A 🚚 🌍 we need to test the utf-8 emoji recognition AND the emoji normalization
+
+
+
+
+### Here all multi line texts:
+
+
+----------------
+
+I'm a story
+Which has no punct
+And can you tokenize me?
+I think yes
+
+
+But with a lot of blank space ? 		
+Maybe ; yes. And did you mean I do it? No you don't.
+
+
+----------
+
+	Subscribe to read more.
+    1 Distribution
+    2 Description
+    3 Liste des familles
+    \[info\]**drakeduck** ok
+    Part 2:** _A review - Resveratrol related cholesterol studies._
+    unsubscribe now.

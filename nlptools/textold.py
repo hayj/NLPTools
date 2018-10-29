@@ -103,11 +103,6 @@ def isStopWord(word):
     else:
         return True
     
-def isPunct(word):
-    if (re.search('([a-z]|[A-Z]|[0-9])', word) is not None and word not in ['-lrb-', '-rrb-', '-lsb-', '-rsb-', '-lcb-', '-rcb-']):
-        return False
-    else:
-        return True
 
 def isWord(word):
     return not isPunct(word);
@@ -140,12 +135,7 @@ def removeStopWordsAlreadyLowered(tokens):
     initNLTKStopWords()
     return [word for word in tokens if word not in englishNLTKStopWords]
 
-def removePunct(tokens, lower=False):
-    newTokens = [];
-    for word in tokens:
-        if not isPunct(word):
-            newTokens.append(word.lower() if lower else word);
-    return newTokens;
+
 
 def toLower(tokens):
     for i in range(len(tokens)):

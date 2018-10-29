@@ -1,4 +1,8 @@
 
+## Dependances on Ubuntu
+
+	sudo apt-get install libenchant1c2a
+
 ## Installation (Python 3)
 
 	git clone https://github.com/hayj/NLPTools.git
