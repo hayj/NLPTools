@@ -14,7 +14,7 @@ from datatools.htmltools import *
 
 # The level allow the unit test execution to choose only the top level test
 mini = 1
-maxi = 10
+maxi = 12
 assert mini <= maxi
 
 print("==============\nStarting unit tests...")
@@ -31,11 +31,10 @@ if mini <= 1 <= maxi:
 	class QuoteTest(unittest.TestCase):
 		def test1(self):
 			t = fileToStr(dataDir + "/strange-quote.txt")
-			strangeQuotes = ["‘‘", "’’", "``", "''", "”", "“", "`", "’", "‘"]
+			strangeQuotes = ["‘‘", "’’", "``", "''", "”", "“", "`", "’", "‘", "´´", "´"]
 			for current in strangeQuotes:
 				self.assertTrue(current in t)
 			t = normalizeQuote(t)
-			# print(t)
 			for current in strangeQuotes:
 				self.assertTrue(current not in t)
 
@@ -364,33 +363,6 @@ if mini <= 5 <= maxi:
 
 
 
-
-def textGenerator(seed=0, whiteList=[], blackList=[], logger=None, verbose=True, maxFiles=4, maxSamplesPerFile=10, maxTweets=3):
-	from systemtools.location import dataDir, sortedGlob, isDir
-	from datatools.jsonutils import NDJson
-	import random
-	if whiteList is None or len(whiteList) == 0:
-		whiteList = None
-	if blackList is None or len(blackList) == 0:
-		blackList = None
-	random.seed(seed)
-	dataDirs = [x for x in sortedGlob(dataDir() + "/News/*") if isDir(x)]
-	dataDirs.append(dataDir() + "/TwitterNewsrec/twitternewsrec3/users")
-	random.shuffle(dataDirs)
-	for current in dataDirs:
-		(_, dirName, _, _) = decomposePath(current)
-		if (whiteList is None or dirName in whiteList) and (blackList is None or dirName not in blackList):
-			filesPath = random.sample(sortedGlob(current + "/*.bz2"), maxFiles)
-			if dirName == "users":
-				for path in filesPath:
-					for user in random.sample(list(NDJson(path)), maxSamplesPerFile):
-						for tweet in random.sample(user["tweets"], maxTweets):
-							yield (dirName, tweet["text"])
-			else:
-				for path in filesPath:
-					for news in random.sample(list(NDJson(path)), maxSamplesPerFile):
-						yield (dirName, news["text"])
-
 def datasetTest():
 
 	def p1(text):
@@ -479,7 +451,7 @@ def datasetTest():
 
 	# Prob % et — 
 
-# TODO pour tester ça, faire une tokenization de tout le dataset et voir les mots qui changent après différents set de paramètres. Faire ça également pour une tokenisation phrase.
+
 
 
 if __name__ == '__main__':

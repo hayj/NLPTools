@@ -27,6 +27,17 @@ class MultiReplacer():
 		return element[0] + self.replacements[match.group(0)[1:-1]] + element[-1]
 
 	def replace(self, text):
+		if isinstance(text, list):
+			newText = []
+			for t in text:
+				newText.append(self.__replace(t))
+			return newText
+		else:
+			return self.__replace(text)
+
+	def __replace(self, text):
+		if text is None or len(text) == 0:
+			return text
 		if self.wrapWhiteSpaces:
 			text = " " + text + " "
 		if self.wrapWhiteSpaces:

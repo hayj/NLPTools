@@ -1,8 +1,7 @@
 
 
-from nlptools.preprocessing import *
-from nlptools.tokenizer import *
 from systemtools.basics import *
+from systemtools.file import *
 from nlptools.utils import *
 import emoji
 import re
@@ -40,8 +39,21 @@ class EmojiNormalizer():
 					logException(e, self)
 			return text
 
+def isEmoji2(token):
+	emoji_pattern = re.compile(
+    u"(\ud83d[\ude00-\ude4f])|"  # emoticons
+    u"(\ud83c[\udf00-\uffff])|"  # symbols & pictographs (1 of 2)
+    u"(\ud83d[\u0000-\uddff])|"  # symbols & pictographs (2 of 2)
+    u"(\ud83d[\ude80-\udeff])|"  # transport & map symbols
+    u"(\ud83c[\udde0-\uddff])"  # flags (iOS)
+	"+", flags=re.UNICODE)
+	return emoji_pattern.match(token)
 
-
+def isEmoji(token):
+	if token is None or len(token) == 0:
+		return False
+	RE_EMOJI = re.compile('^([\U00010000-\U0010ffff]|[\U00002600-\U000026FF])$', flags=re.UNICODE)
+	return RE_EMOJI.match(token)
 
 
 emojiNormalizerSingleton = None

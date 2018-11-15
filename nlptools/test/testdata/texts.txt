@@ -1,7 +1,7 @@
 ### Mixed special cases:
 
 Hello Karl_! :-).
-Are you Dédé ???? ^^ Make 5,5€ or $6.01 with 5 € and 5.5€!!
+Are you Dédé ???? ^^ Make 5,5€ or $6.01 with 5 € and 5.5€? And $6!! Or $6,8 and $6.9. Did you 8.8$?
 I'm not ``sure`` you 're right Bobs' things 'ù4' 999.99 & you're cat $9.9M.
 Check this formula: $x=\frac{1+y}{1+2z^2}$ from aaaaaa@gmail.com	=) <3
 Are u ok ?!?!?.... I' m pretty sure I'm ok***
@@ -27,13 +27,16 @@ Why \o/ ààààààààààààà .http://youtu.be/89 3.2.3.1: M @YouTube http:
 decided to get rid of him...pic.twitter.com/G6wjgxlFbw
 #YO >_> @toto >>>>>@Test :‑)  	 <<<<<<< http://ToTo.com/54%208&amp;9 #my_url b_r_o.... ( ͡° ͜ʖ ͡°) (͡°͜ʖ͡°) (°͜ʖ͡°) (*≧▽≦) (>_<).
 
+### Quotes:
+
+''Quotes'' \"test\" ’’’‘ “test”///!  ´ ` ``test´´ “ ” „ ’ ‘ ' DATAé’`
 
 ### Encoding probs and foreign languages:
 
 Ge uh. uyErt??, hTdf!§hds 4555555 QA+89.......
 You are here: 	ê	ω
-Encoding probs: �<U+0094> <U+0093> " ïṡẄ 	\n ’’’‘ “test”///!
-''test'' \"test\"  UTF-8 DATAé’`ç| \n\r kožušček # \t ♯ « » “ ” „ … ¿ ´ ` ``test´´ ˜ • __ ♥ ‹ < > - - – — _ ¸ ^ ˆ {{angular}} ’ ‘ '  t   ¶ \\ Á
+Encoding probs: �<U+0094> <U+0093> " ïṡẄ 	\n 
+t\"  UTF-8 DATAé’`ç| \n\r kožušček # \t ♯ « » … ¿ ˜ • __ ♥ ‹ < > - - – — _ ¸ ^ ˆ {{angular}}  t   ¶ \\ Á
 
 Here I am. 漢字 □. What did YOU MEAN?? (e.g. I got a tea) 
 jR�F����g� ��tY_��:�_�k��Y�8�������
@@ -51,10 +54,22 @@ only one url here: https://mobile.nytimes.com/aponline/2018/01/30/us/ap-us-airbn
 
 Mr. Smith and Dr. in USA what? U.S.A. with dr. Mac!!! Neymar Jr., is Neymar Jr.. Or is Neymar Jr.
 This. is a strange! Sentence to tokenize? is'nt it ? Hahaaaa;you're right_.
-These sentences are here to test stop words. Particularly when you want to I'm nor didn't knows come anymore. I'll Bob' things you've not awesome? Available RE I test RE: ok. Take off your things and don't myself. He hasnt hasn' t hasn't hasn 't do it properly by me on the only their pretty things of Mr. D.
+These sentences are here to test stop words... Particularly when you want to I'm nor didn't knows come anymore. I'll Bob' things you've not awesome? Available RE I test RE: ok. Take off your things and don't myself. He hasnt hasn' t hasn't hasn 't do it properly by me on the only their pretty things of Mr. D.
 Can you lematize cats and dogs likely fairing till' I accepted it? Of course.I'm not ok.
 Google Inc., 20 West Kinzie, Chicago IL USA 60610
+I got 5,5€ or $6.01 with 5 € and 5.5€?
 
+### Tokenization and unknown tokens:
+
+Tiret information—speeches, earnings, earthquakes and on and on—to help investors 1999-2005
+Unknown 2:10 80,000-pound 1😇0 40,000-square-foot 50-49 12:01 -- test M²GATE
+Blog Lyles,30 Opportunity test » **Nintendo March** .882 5-15-0 3:33pm
+PlayStation® PlayStation®3 cobrien@politico.com test–anywhere –anywhere –anywhere 1999-2005.
+why 一so nice一 ━this━ 一bear一? azooming
+Tok (CPC),will Chongqing,the and "unjust",when test. And "unjust", when test. Climb,50-year the time,”What’s really.
+Spacy and nltktwitter tokenizer big fails on stoma​ch?​
+Here a \u200b (Zero width space) characters: stoma​ch?​ ok? sleep​?​ yeste​rday?​ yesterday? tomor​row?​ tomorrow? person? perso​n?​
+Test 100%.This is ok?
 
 ### All emojis special cases:
 

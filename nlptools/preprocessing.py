@@ -68,26 +68,31 @@ def tweetHardPreprocess(*args, **kwargs):
 def lower(theString):
 	return theString.lower()
 
-def normalizeQuote(texts):
-	"""
-		Tested
-	"""
-	if not isinstance(texts, list):
-		texts = [texts]
-	newTexts = []
-	for current in texts:
-		current = re.sub("[‘’`']{2,}", '"', current)
-		current = current.replace("”", '"')
-		current = current.replace("“", '"')
-		current = current.replace("`", "'")
-		current = current.replace("’", "'")
-		current = current.replace("‘", "'")
-		newTexts.append(current)
-	texts = newTexts
-	if len(texts) == 1:
-		return texts[0]
-	else:
-		return texts
+normalizeQuoteMRSingleton = None
+def normalizeQuote(text):
+	global normalizeQuoteMRSingleton
+	if text is None or len(text) == 0:
+		return text
+	if normalizeQuoteMRSingleton is None:
+		repls = \
+		{
+			"‘‘": '"',
+			"’’": '"',
+			"``": '"',
+			"´´": '"',
+			"”": '"',
+			"“": '"',
+			"«": '"',
+			"»": '"',
+			"`": "'",
+			"’": "'",
+			"‘": "'",
+			"´": "'",
+		}
+		normalizeQuoteMRSingleton = MultiReplacer(repls)
+	text = normalizeQuoteMRSingleton.replace(text)
+	text = text.replace("''", '"') # We do this after
+	return text
 
 def containsHtml(text):
 	if text is None:
@@ -124,6 +129,7 @@ def badlyEncodedPreprocess(text, logger=None, verbose=True):
 	text = text.replace("<U+0093>", '"')
 	text = text.replace("", '"')
 	text = text.replace("<U+0094>", '"')
+	text = text.replace("\u200b", "")
 	text = re.sub("<U\+\d+>", " ", text)
 	text = re.sub("�", " ", text)
 	text = re.sub("ïṡẄ", " ", text)
@@ -132,10 +138,26 @@ def badlyEncodedPreprocess(text, logger=None, verbose=True):
 specialMapMRSingleton = None
 def specialMap(text, logger=None, verbose=True):
 	global specialMapMRSingleton
+	# "©": " © "
+	# "®": " ® "
+	# "—": " — "
 	if specialMapMRSingleton is None:
-		repl = {"…": "...", " ": " "}
+		repl = {"…": "...", " ": " ", "‑": "-", "━": "—", "一": "—", "–": "—"}
 		specialMapMRSingleton = MultiReplacer(repl, logger=logger, verbose=verbose)
 	return specialMapMRSingleton.replace(text)
+
+tokenizingHelpMRSingleton = None
+def tokenizingHelp(text, logger=None, verbose=True):
+	global tokenizingHelpMRSingleton
+	# "©": " © "
+	# "®": " ® "
+	# "—": " — "
+	if tokenizingHelpMRSingleton is None:
+		repl = {"—": " — ", "*": " * "}
+		tokenizingHelpMRSingleton = MultiReplacer(repl, logger=logger, verbose=verbose)
+	# First we add space after all ","
+	text = re.sub(',([a-zA-Z"])', ", \g<1>", text)
+	return tokenizingHelpMRSingleton.replace(text)
 
 compiledNotAllowedRegex = None
 def preprocess\
@@ -187,6 +209,8 @@ def preprocess\
     doSpecialMap= False,
 
     doNormalizeEmojis= False,
+
+    doTokenizingHelp= False,
 ):
 	"""
 		This function will convert all special chars (accents...) to ascii equivalent using unidecode. It will replace special usage of `` ´´ by it's equivalent, will replace '' by a doublequote etc. This function will also reduce blanks to unique space but will keep new lines. It will strip the string, remove the html.
@@ -215,22 +239,24 @@ def preprocess\
 				(text, urls) = extractUrls(text)
 			if unescapeHtml:
 				text = html.unescape(text)
+			if doSpecialMap:
+				text = specialMap(text, logger=logger, verbose=verbose)
 			if doNormalizeEmojis:
 				text = normalizeEmojis(text, logger=logger, verbose=verbose)
 			if doQuoteNormalization:
 				text = normalizeQuote(text)
+			if doTokenizingHelp:
+				text = tokenizingHelp(text, logger=logger, verbose=verbose)
 			if doUnidecode:
 				text = unidecode(text)
 			elif stripAccents:
 				text = ''.join(c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn')
-			if doSpecialMap:
-				text = specialMap(text)
 
 			# We remove special chars (not in punct etc):
 			allowedChars = "a-zA-Z0-9-_ \n"
 			punctChars = ["./:!?;,()", "<>[\]*—", "|{}~^"]
 			quoteChars = ["'\""]
-			currencyChars = ["$€£"]
+			currencyChars = ["$€£¥"]
 			socialChars = ["@#"]
 			functionChars = ["&%", "+="]
 			# smileyChars = ["()='<>-:|^;_,/", "*{}[]", "\\"] # TODO ?
