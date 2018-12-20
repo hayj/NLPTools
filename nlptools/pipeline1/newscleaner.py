@@ -5,6 +5,8 @@ from nlptools.pipeline1.utils import *
 import copy
 
 def precleanv1(text, logger=None, verbose=True):
+	if text is None:
+		return None
 	lines = text.split("\n")
 	text = None
 	for findMenuKwargs in \
@@ -46,6 +48,8 @@ def precleanv1(text, logger=None, verbose=True):
 	return text
 
 def postcleanv1(taggedSentences, minAlphasPerSentence=1, minAlphaForBoundaries=5, logger=None, verbose=True):
+	if taggedSentences is None:
+		return None
 	# We first eliminate all too short sentences:
 	newTaggedSentences = []
 	for sentence in taggedSentences:

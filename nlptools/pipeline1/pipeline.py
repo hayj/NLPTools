@@ -23,6 +23,15 @@ def pipelinev1(text, logger=None, verbose=True):
 	else:
 		return None
 
+def titlePipelinev1(text, logger=None, verbose=True):
+	if text is None:
+		return None
+	text = preprocess(text, logger=logger, verbose=verbose)
+	text = tokenize(text, logger=logger, verbose=verbose)
+	text = tagTokensByType(text, logger=logger, verbose=verbose)
+	text = cleanTokens(text, logger=logger, verbose=verbose)
+	text = removeTokenType(text)
+	return text
 
 def preprocess(text, logger=None, verbose=True):
 	# We first preprocess the text:
@@ -186,7 +195,7 @@ def cleanTokens(taggedTokens, logger=None, verbose=True):
 		It can be already tagged or not
 	"""
 	if taggedTokens is None or len(taggedTokens) == 0:
-		logError("taggedTokens is None or empty", logger, verbose=verbose)
+		# logError("taggedTokens is None or empty", logger, verbose=verbose)
 		return taggedTokens
 	if not isinstance(taggedTokens, list):
 		logError("taggedTokens is not a list", logger, verbose=verbose)
@@ -228,6 +237,8 @@ def cleanTokens(taggedTokens, logger=None, verbose=True):
 
 
 def removeTokenType(typedSentences):
+	if typedSentences is None:
+		return None
 	sentences = []
 	for typedTokens in typedSentences:
 		currentTokens = []

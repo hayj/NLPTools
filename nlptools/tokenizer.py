@@ -63,6 +63,7 @@ spacyNlpForTokenizer = None
 def spaCyTokenizeYielder(text):
     global spacyNlpForTokenizer
     if spacyNlpForTokenizer is None:
+        # pew in st-venv python -m spacy download en
         spacyNlpForTokenizer = spacy.load('en_core_web_sm')
     doc = spacyNlpForTokenizer(text, disable=['parser', 'tagger', 'ner'])
     for token in doc:

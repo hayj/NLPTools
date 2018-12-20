@@ -1,4 +1,4 @@
-# pew in st-venv python ~/Workspace/Python/Utils/NLPTools/nlptools/test/pipelinetest.py
+# pew in st-venv python ~/Workspace/Python/Utils/NLPTools/nlptools/pipeline1/test/pipelinetest.py
 
 
 
