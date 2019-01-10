@@ -16,8 +16,8 @@ import threading
 
 
 # The level allow the unit test execution to choose only the top level test
-mini = 3
-maxi = 3
+mini = 5
+maxi = 10
 assert mini <= maxi
 
 print("==============\nStarting unit tests...")
@@ -94,8 +94,8 @@ if mini <= 1 <= maxi:
 if mini <= 2 <= maxi:
     class Test2(unittest.TestCase):
         def test1(self):
-            d1 = fileToStr(execDir(__file__) + "/testdata/doc0.txt")
-            d2 = fileToStr(execDir(__file__) + "/testdata/doc1.txt")
+            d1 = fileToStr(execDir(__file__) + "/testdata/overlapdata/doc0.txt")
+            d2 = fileToStr(execDir(__file__) + "/testdata/overlapdata/doc1.txt")
             # print(d1)
             # print(d2)
             o = Overlap([d1, d2], ngramsMin=2, parallelCount=1,
@@ -159,7 +159,7 @@ if mini <= 5 <= maxi:
         def test1(self):
             docs = []
             for i in range(8):
-                filePath = execDir(__file__) + "/testdata/doc" + str(i) + ".txt"
+                filePath = execDir(__file__) + "/testdata/overlapdata/doc" + str(i) + ".txt"
                 if isFile(filePath):
                     d = fileToStr(filePath)
                     docs.append(d)

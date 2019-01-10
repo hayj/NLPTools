@@ -1,4 +1,6 @@
 
+# pew in st-venv python /home/hayj/Workspace/Python/Utils/NLPTools/nlptools//overlap.py
+
 from datastructuretools.processing import *
 from systemtools.basics import *
 from systemtools.logger import *
@@ -66,6 +68,7 @@ class Overlap():
 			"parallelCount": self.parallelCount,
 			"mapType": MAP_TYPE.multiprocessing,
 			"logger": self.logger,
+			"verbose": self.verbose,
 		}
 		# print(len(self.documents))
 		# totalStringLen = 0
@@ -119,7 +122,7 @@ class Overlap():
 
 	def tokenize(self):
 		pool = Pool(**self.poolParams)
-		self.documents = pool.map(tokenize, self.documents)
+		self.documents = pool.map(wordTokenize, self.documents)
 
 	def generateInvertedIndex(self):
 		"""
@@ -199,15 +202,15 @@ class Overlap():
 			--> tic: 2m 48.03s | message: for 3000 docs and a batchMaxSize of 200.
 			
 		"""
-		localTT = TicToc(logger=self.logger)
-		localTT.tic("generateOverlaps: start")
+		# localTT = TicToc(logger=self.logger)
+		# localTT.tic("generateOverlaps: start")
 		batchCount = 1
 		batchSize = len(self.documents)
 		if self.batchMaxSize is not None and self.batchMaxSize > 1:
 			batchCount = math.ceil(len(self.documents) / self.batchMaxSize)
 			batchSize = math.ceil(len(self.documents) / batchCount)
 		pairs = []
-		localTT.tic("generateOverlaps: step2")
+		# localTT.tic("generateOverlaps: step2")
 		for batchIndex in range(batchCount):
 		    currentStartIndex = batchIndex * batchSize
 		    for a in range(currentStartIndex, currentStartIndex + batchSize):
@@ -222,9 +225,9 @@ class Overlap():
 		pairs = split(pairs, self.parallelCount)
 		pool = Pool(**self.poolParams)
 		overlapss = pool.map(self.getOverlapsFromPairs, pairs)
-		localTT.tic("generateOverlaps: step3")
+		# localTT.tic("generateOverlaps: step3")
 		overlaps = self.overlapsFusion(overlapss)
-		localTT.tic("generateOverlaps: step4")
+		# localTT.tic("generateOverlaps: step4")
 		if batchCount > 1:
 			# ttt = TicToc()
 			# ttt.tic(display=False)
@@ -233,7 +236,7 @@ class Overlap():
 			ngramss = split(ngrams, self.parallelCount)
 			pool = Pool(**self.poolParams)
 			overlapss = pool.map(self.reconstructOverlaps, ngramss)
-			localTT.tic("generateOverlaps: step5")
+			# localTT.tic("generateOverlaps: step5")
 			overlaps = self.overlapsFusion(overlapss)
 			# ttt.toc("the duration of the reconstruction")
 			# A priori pas besoin de faire de removeEmbeddedNgrams, puisqu'on l'a deja fait entre pairs:
@@ -241,12 +244,12 @@ class Overlap():
 			# 	overlaps = removeEmbeddedNgrams(overlaps, range(len(self.documents))
 		self.tt.tic("Overlaps generated.")
 		self.overlaps = overlaps
-		localTT.toc("generateOverlaps: end")
+		# localTT.toc("generateOverlaps: end")
 		return overlaps
 
 	def reconstructOverlaps(self, ngrams):
-		tt = TicToc(logger=self.logger)
-		tt.tic("reconstructOverlaps: start")
+		# tt = TicToc(logger=self.logger)
+		# tt.tic("reconstructOverlaps: start")
 		newOverlaps = dict()
 		for ngram in ngrams:
 			newOverlaps[ngram] = dict()
@@ -270,7 +273,7 @@ class Overlap():
 						if docIndex not in newOverlaps[ngram]:
 							newOverlaps[ngram][docIndex] = set()
 						newOverlaps[ngram][docIndex].add(wordIndex)
-		tt.toc("reconstructOverlaps: end")
+		# tt.toc("reconstructOverlaps: end")
 		return newOverlaps
 
 	def overlapsFusion(self, overlapss):
@@ -286,20 +289,20 @@ class Overlap():
 	def getOverlapsFromPairs(self, pairs):
 		overlaps = None
 		try:
-			tt = TicToc(logger=self.logger)
-			tt.tic("getOverlapsFromPairs: start")
+			# tt = TicToc(logger=self.logger)
+			# tt.tic("getOverlapsFromPairs: start")
 			overlapss = []
 			for index1, index2 in pairs:
 				pairOverlaps = self.getOverlapsFromPair(index1, index2)
 				if len(pairOverlaps) > 0:
 					overlapss.append(pairOverlaps)
-			tt.tic("getOverlapsFromPairs: step2")
+			# tt.tic("getOverlapsFromPairs: step2")
 			overlaps = self.overlapsFusion(overlapss)
 		except Exception as e:
 			# TODO DELETE
 			logger = Logger(tmpDir(subDir="overlap-process-loggers") + "/" + getRandomStr() + ".log")
 			logException(e, logger=logger, verbose=True)
-		tt.toc("getOverlapsFromPairs: end")
+		# tt.toc("getOverlapsFromPairs: end")
 		return overlaps
 
 	def getOverlapsFromPair(self, docIndex1, docIndex2):
@@ -353,8 +356,8 @@ class Overlap():
 				{1, 3}
 			]
 		"""
-		tt = TicToc(logger=self.logger)
-		tt.tic("findDuplicates: start")
+		# tt = TicToc(logger=self.logger)
+		# tt.tic("findDuplicates: start")
 		meanOverlapScores = self.getMeanOverlapScores(threshold=0.0)
 		duplicatess = []
 		for pair, similarity in meanOverlapScores.items():
@@ -368,7 +371,7 @@ class Overlap():
 						break
 				if not found:
 					duplicatess.append({pair[0], pair[1]})
-		tt.toc("findDuplicates: end")
+		# tt.toc("findDuplicates: end")
 		return duplicatess
 
 
@@ -381,8 +384,8 @@ class Overlap():
 			}
 			You can not have a key (3, 1), there are no duplicates, all tuples values (which are key of the structure) are sorted.
 		"""
-		tt = TicToc(logger=self.logger)
-		tt.tic("getMeanOverlapScores: start")
+		# tt = TicToc(logger=self.logger)
+		# tt.tic("getMeanOverlapScores: start")
 		overlapScores = self.getOverlapScores(threshold=0.0)
 		meanOverlapScores = dict()
 		for currentDocIndex, targets in overlapScores.items():
@@ -395,13 +398,13 @@ class Overlap():
 					theMean = (score + overlapScores[targetIndex][currentDocIndex]) / 2.0
 					meanOverlapScores[theKey] = theMean
 		# We filter:
-		tt.tic("getMeanOverlapScores: We filter")
+		# tt.tic("getMeanOverlapScores: We filter")
 		newMeanOverlapScores = dict()
 		for theKey, score in meanOverlapScores.items():
 			if score >= threshold:
 				newMeanOverlapScores[theKey] = score
 		meanOverlapScores = newMeanOverlapScores
-		tt.toc("getMeanOverlapScores: end")
+		# tt.toc("getMeanOverlapScores: end")
 		return meanOverlapScores
 
 
@@ -428,8 +431,8 @@ class Overlap():
 		# else:
 		# 	return self.generateOverlapedDocs(*args, **kwargs)
 		# def generateOverlapedDocs(self, threshold=0.8):
-		tt = TicToc(logger=self.logger)
-		tt.tic("getOverlapScores: start")
+		# tt = TicToc(logger=self.logger)
+		# tt.tic("getOverlapScores: start")
 		overlaps = self.getOverlaps()
 		targetPairs = set()
 		for ngram, docsIndexes in overlaps.items():
@@ -441,7 +444,7 @@ class Overlap():
 						else:
 							targetPairs.add((u, i))
 		overlapedDocs = dict()
-		tt.tic("getOverlapScores: step2")
+		# tt.tic("getOverlapScores: step2")
 		for docIndex1, docIndex2 in targetPairs:
 			overlapVector1 = [False] * len(self.documents[docIndex1])
 			overlapVector2 = [False] * len(self.documents[docIndex2])
@@ -462,7 +465,7 @@ class Overlap():
 			if docIndex2 not in overlapedDocs:
 				overlapedDocs[docIndex2] = dict()
 			overlapedDocs[docIndex2][docIndex1] = overlapAmount2 / len(self.documents[docIndex2])
-		tt.tic("getOverlapScores: step3")
+		# tt.tic("getOverlapScores: step3")
 		# We filter:
 		newOverlapedDocs = dict()
 		for target, currentOverlapedDocs in overlapedDocs.items():
@@ -473,7 +476,7 @@ class Overlap():
 			if len(newCurrentOverlapedDocs) > 0:
 				newOverlapedDocs[target] = newCurrentOverlapedDocs
 		overlapedDocs = newOverlapedDocs
-		tt.toc("getOverlapScores: end")
+		# tt.toc("getOverlapScores: end")
 		return overlapedDocs
 
 
@@ -542,8 +545,24 @@ def removeEmbeddedNgrams(overlaps, docIndexes):
 
 
 
+def test1():
+	# from nlpstools.overlap import * # install our packae using https://github.com/hayj/Bash/blob/master/hjupdate.sh
+	# Get your data:
+    d0 = "Hello I am X and I did an Overlap librarie?"
+    d1 = "Hello I am Y and I work on Overlap librarie tool."
+    d2 = "You are working on this with my collegue, on the Overlap librarie tool!"
+    # Init the Overlap object and set ngramsMin. If ngramsMin is 2, only 2grams will be taken into account:
+    o = Overlap([d0, d1, d2], ngramsMin=2, verbose=False)
+    # You can get overlaps:
+    printLTS(o.getOverlaps())
+    # You can get a pairwise scores between each document:
+    printLTS(o.getMeanOverlapScores())
+    # You can find similar document by searching for duplicates with a threshold:
+    printLTS(o.findDuplicates(threshold=0.75))
+    # You can get preprocessed document with this method, the preprocessing do char normalization, lower case chars, tokenize, remove tokens that are not wordw and finally remove stop words:
+    printLTS(o.getDocuments())
 
-if __name__ == '__main__':
+def test2():
 	for i in range(100):
 		documents = []
 		for u in range(100):
@@ -556,7 +575,8 @@ if __name__ == '__main__':
 		Overlap(documents)
 		tt.tic()
 
-
+if __name__ == '__main__':
+	test1()
 
 
 
