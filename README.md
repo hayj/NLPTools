@@ -33,7 +33,7 @@ Init the Overlap object and set ngramsMin. If ngramsMin is 2, only 2grams will b
 
 You can get overlaps:
 
-    >>> printLTS(o.getOverlaps())
+    >>> print(o.getOverlaps())
     {
 		('overlap', 'librarie'): {
 			0: {0},
@@ -48,7 +48,7 @@ You can get overlaps:
 
 You can get a pairwise scores between each document:
 
-    >>> printLTS(o.getMeanOverlapScores())
+    >>> print(o.getMeanOverlapScores())
     {
 		(0, 1): 0.75,
 		(0, 2): 0.7,
@@ -57,14 +57,14 @@ You can get a pairwise scores between each document:
 
 You can find similar document by searching for duplicates with a threshold:
 
-    >>> printLTS(o.findDuplicates(threshold=0.75))
+    >>> print(o.findDuplicates(threshold=0.75))
     [
 		{0, 1}
 	]
 
 You can get preprocessed document with this method, the preprocessing do char normalization, lower case chars, tokenize, remove tokens that are not wordw and finally remove stop words:
 
-    >>> printLTS(o.getDocuments())
+    >>> print(o.getDocuments())
     [
 		[
 			"overlap",
