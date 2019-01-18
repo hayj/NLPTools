@@ -59,7 +59,7 @@ Remove urls:
 	>>> preprocess(t, doRemoveUrls=True))
 	Pls visit  !!
 
-And other parameters like `replaceCurrencyLevel`, `replaceSocialLevel`, `replaceFunctionLevel`... You will also find others function for post-tokenization processing etc.
+And other parameters like `replaceCurrencyLevel`, `replaceSocialLevel`, `replaceFunctionLevel`... You will also find others functions for post-tokenization processing etc.
 
 ## Overlap
 
