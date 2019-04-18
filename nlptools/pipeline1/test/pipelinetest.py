@@ -91,6 +91,7 @@ def seeAllTypes():
 def seePipelinev1():
 	for dirname, text in threadedTextGenerator(seed=22, limit=200):
 		print(">>>>>>>>>>>> " + dirname)
+		text = text[:30] + " " + "abc" * 100 + " " + text[30:]
 		tokens = pipelinev1.pipelinev1(text)
 		paragraph = sentencesToParagraph(tokens)
 		print(text)

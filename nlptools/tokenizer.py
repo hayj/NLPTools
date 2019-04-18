@@ -4,9 +4,11 @@ from nltk.tokenize import sent_tokenize
 from nltk.tokenize import TweetTokenizer
 from enum import Enum
 import spacy
+from mosestokenizer import MosesDetokenizer
+from nlptools.utils import *
 
 """
-    Spay is the best tokenizer
+    Spacy is the best tokenizer
 """
 WORD_TOKENIZER = Enum("WORD_TOKENIZER", "nltk nltktwitter spacy")
 
@@ -46,7 +48,7 @@ def sentenceTokenize(obj, *args, logger=None, verbose=True, **kwargs):
 
 
 def tokenize(obj):
-    print("DEPRECATED")
+    print("DEPRECATED tokenize(obj)")
     if obj is None:
         return None
     elif isinstance(obj, str):
@@ -99,9 +101,66 @@ def test2():
     print(tokenize(data))
 
 
+
+multiReplacerSingleton = None
+detokenizeSingleton = None
+def detokenize(wordsOrSentences, joinSentences=True, logger=None, verbose=True):
+    global multiReplacerSingleton, detokenizeSingleton
+    words = wordsOrSentences
+    def __detokenizeWords(words):
+        text = detokenizeSingleton(words)
+        text = multiReplacerSingleton.replace(text)
+        return text
+    if multiReplacerSingleton is None:
+        repls = \
+        {
+            # " ,": ",",
+            # " .": ".",
+            # " ?": "?",
+            # " !": "!",
+            # " )": ")",
+            # "( ": "(",
+            # " :": ":",
+            # " '": "'",
+            " n't": "n't",
+        }
+        multiReplacerSingleton = MultiReplacer(repls)
+    if detokenizeSingleton is None:
+        detokenizeSingleton = MosesDetokenizer('en')
+    if words is None or len(words) == 0:
+        return ""
+    if isinstance(words[0], list):
+        sentences = words
+        for i in range(len(sentences)):
+            words = sentences[i]
+            text = __detokenizeWords(words)
+            sentences[i] = text
+        if joinSentences:
+            return "\n".join(sentences)
+        else:
+            return sentences
+    elif isinstance(words[0], str):
+        return __detokenizeWords(words)
+    else:
+        logError("words[0] must be either a list (so words are sentences)", logger, verbose=verbose)
+        return None
+
+def detokenizerTest():
+    s1 = ["I", "am", "the", "thing", ",", "you", "did", "n't", "do", ".", "Yeah", "!"]
+    s2 = ["I", "'m", "the", "(", "thing", ")", "you", ":", "did", "?"]
+    sentences = [s1, s2]
+
+    print(detokenize(s1))
+    print("\n" * 2)
+    print(detokenize(s2))
+    print("\n" * 2)
+    print(detokenize(sentences))
+    
+
+
 def test2():
     print(wordTokenize("Hello 'things' and ''tool'' my name is \"Abi\". I like this!"))
 
 
 if __name__ == "__main__":
-    test2()
+    detokenizerTest()

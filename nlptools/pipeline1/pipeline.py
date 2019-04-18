@@ -89,6 +89,22 @@ def preprocess(text, logger=None, verbose=True):
 	)
 	return preprocessedText
 
+def original_hashing_trick(text, n,
+                  hash_function=None,
+                  filters='!"#$%&()*+,-./:;<=>?@[\\]^_`{|}~\t\n',
+                  lower=True,
+                  split=' '):
+	if hash_function is None:
+	    hash_function = hash
+	elif hash_function == 'md5':
+	    hash_function = lambda w: int(md5(w.encode()).hexdigest(), 16)
+
+	seq = text_to_word_sequence(text,
+	                            filters=filters,
+	                            lower=lower,
+	                            split=split)
+	return [(hash_function(w) % (n - 1) + 1) for w in seq]
+
 def tokenize(preprocessedText, logger=None, verbose=True):
 	# Then we tokenize all sentences and words:
 	tokenizedText = sentenceTokenize\
@@ -187,7 +203,7 @@ def regexSquareBracketedEscape(text):
 	text = text.replace("-", "\\-")
 	return text
 
-def cleanTokens(taggedTokens, logger=None, verbose=True):
+def cleanTokens(taggedTokens, maxTokenLength=200, logger=None, verbose=True):
 	"""
 		Here the only allowed type to appear more than 1 time consecutivly is alpha.
 		
@@ -223,13 +239,14 @@ def cleanTokens(taggedTokens, logger=None, verbose=True):
 			for (token, theType) in taggedTokens:
 				token = tokenTypeReplace(token, theType)
 				if token is not None:
-					if theType == TOKEN_TYPE.alpha:
-						counts = initCount()
-						newTaggedTokens.append((token, theType))
-					else:
-						counts[theType] += 1
-						if counts[theType] <= 1:
+					if len(token) <= maxTokenLength:
+						if theType == TOKEN_TYPE.alpha:
+							counts = initCount()
 							newTaggedTokens.append((token, theType))
+						else:
+							counts[theType] += 1
+							if counts[theType] <= 1:
+								newTaggedTokens.append((token, theType))
 			return newTaggedTokens
 	except Exception as e:
 		logException(e, logger, verbose=verbose)
