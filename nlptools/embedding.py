@@ -51,7 +51,7 @@ def tokensToEmbedding(tokens, wordVectors=None, operation='sum', removeDuplicate
             tokens = set(tokens)
         vectors = []
         for current in tokens:
-            if lower:
+            if doLower:
                 current = current.lower()
             if current in wordVectors:
                 vectors.append(wordVectors["current"])
@@ -74,8 +74,9 @@ class WordVectors():
 	(
 		self,
 		dataDir=None,
-		defaultKeyPattern="fasttext.*300d.*2M",
+		# defaultKeyPattern="fasttext.*300d.*2M",
 		# defaultKeyPattern="glove-6B",
+		defaultKeyPattern="glove-840B",
 		# defaultKeyPattern="840B.300d",
 		logger=None,
 		verbose=True
@@ -145,6 +146,9 @@ class WordVectors():
 			log(key + " already downloaded.")
 
 	def load(self, keyPattern=None, maxWords=None):
+		"""
+			This function return a dict mapping words and vectors
+		"""
 		if keyPattern is None:
 			keyPattern = self.defaultKeyPattern
 		if keyPattern in self.cache:
@@ -186,11 +190,16 @@ class WordVectors():
 			self.cache[keyPattern] = data
 			return data
 
+def example():
+	wordVectors = getWordVectorsSingleton().load("glove-6B" if hjlat() else "glove-840B")
 
 def test2():
 	wv = WordVectors()
 	data = wv.load()
 	print(reducedLTS(list(data.items())))
 
+def test1():
+	vectors = getWordVectorsSingleton().load("glove-6B" if hjlat() else "glove-840B")
+
 if __name__ == '__main__':
-	test2()
+	test1()
