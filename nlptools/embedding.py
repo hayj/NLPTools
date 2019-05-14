@@ -93,6 +93,7 @@ class WordVectors():
 			"glove-6B": "http://nlp.stanford.edu/data/glove.6B.zip",
 			"glove-42B.300d": "http://nlp.stanford.edu/data/glove.42B.300d.zip",
 			"glove-840B.300d": "http://nlp.stanford.edu/data/glove.840B.300d.zip",
+			"twitterglove-27B.300d": "http://nlp.stanford.edu/data/glove.twitter.27B.zip",
 			"word2vec": homeDir() + "/Downloads/word2vec.zip",
 		}
 		self.cache = SerializableDict\
@@ -199,7 +200,8 @@ def test2():
 	print(reducedLTS(list(data.items())))
 
 def test1():
-	vectors = getWordVectorsSingleton().load("glove-6B" if hjlat() else "glove-840B")
+	vectors = getWordVectorsSingleton().load("twitterglove-27B.300d" if hjlat() else "glove-840B")
+	print(vectors["the"])
 
 if __name__ == '__main__':
 	test1()
