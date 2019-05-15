@@ -1,9 +1,10 @@
 
 # NLPTools
 
-## Dependency on Ubuntu
+## Dependencies on Ubuntu
 
 	sudo apt-get install libenchant1c2a
+	sudo apt-get install p7zip-full
 
 ## Installation (Python 3)
 
