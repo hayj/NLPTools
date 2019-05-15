@@ -83,7 +83,7 @@ WORD_EMBEDDINGS_RESSOURCES = \
 	"glove-twitter-27B": ("http://nlp.stanford.edu/data/glove.twitter.27B.zip", [25, 50, 100, 200]),
 	"googlenews": ("https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz", [300]),
 }
-class EmbeddingsLoader():
+class Embeddings():
 	def __init__\
 	(
 		self,
@@ -164,7 +164,7 @@ class EmbeddingsLoader():
 		else:
 			log("We already generated multiparts dir of " + self.key + ".", self)
 
-	def load(self, maxWords=None):
+	def getVectors(self, maxWords=None):
 		"""
 			This function return a dict mapping words and vectors
 		"""
@@ -205,11 +205,11 @@ class EmbeddingsLoader():
 
 
 def test1():
-	loader = EmbeddingsLoader("google", None)
-	wordVectors = loader.load()
+	loader = Embeddings("google", None)
+	wordVectors = loader.getVectors()
 	print(wordVectors["the"])
-	wordVectors = loader.load()
-	wordVectors = loader.load()
+	wordVectors = loader.getVectors()
+	wordVectors = loader.getVectors()
 	print(wordVectors["the"])
 	print(loader.isLower())
 
