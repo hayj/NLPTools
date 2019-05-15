@@ -66,7 +66,7 @@ And other parameters like `replaceCurrencyLevel`, `replaceSocialLevel`, `replace
 
 ## Embeddings
 
-This tool provide usefull functin to load and handle word embeddings.
+This tool provide usefull functions to automatically download and handle word embeddings.
 
 Load GloVe vectors:
 
