@@ -13,6 +13,39 @@
 
 Or use this script: <https://github.com/hayj/Bash/blob/master/hjupdate.sh>
 
+## Embeddings
+
+This tool provide usefull functions to automatically download and handle word embeddings.
+
+Load GloVe vectors:
+
+	emb = Embeddings("glove")
+	wordVectors = emb.getVectors()
+
+**How it works :** all vectors will be downloaded and stored in a tmp directory (in case of googlenews vector, it will convert the bin format to a compressed txt format). So the next time you wil load vectors, it will automatically load vectors from disk if it was already downloaded.
+
+Print informations about loaded vectors:
+
+	print(emb.isLower())
+	print(emb.getVectors()["the"])
+
+You can also choose a specific dimension for a given vector key:
+
+	emb = Embeddings("glove-twitter", 200)
+
+You can choose these keys (please pm me to suggest other embeddings) :
+
+	"fasttext-wiki-news-1M": [300]
+	"fasttext-wiki-news-1M-subword": [300]
+	"fasttext-crawl-2M": [300]
+	"fasttext-crawl-2M-subword": [300]
+	"glove-6B": [50, 100, 200, 300]
+	"glove-42B": [300]
+	"glove-840B": [300]
+	"glove-twitter-27B": [25, 50, 100, 200]
+	"googlenews": [300]
+
+
 ## Preprocessing of text
 
 This module provide a complete preprocessing function, see the usage:
@@ -64,37 +97,6 @@ Remove urls:
 
 And other parameters like `replaceCurrencyLevel`, `replaceSocialLevel`, `replaceFunctionLevel`... You will also find others functions for post-tokenization processing etc.
 
-## Embeddings
-
-This tool provide usefull functions to automatically download and handle word embeddings.
-
-Load GloVe vectors:
-
-	emb = Embeddings("glove")
-	wordVectors = emb.getVectors()
-
-**How it works :** all vectors will be downloaded and stored in a tmp directory (in case of googlenews vector, it will convert the bin format to a compressed txt format). So the next time you wil load vectors, it will automatically load vectors from disk if it was already downloaded.
-
-Print informations about loaded vectors:
-
-	print(emb.isLower())
-	print(emb.getVectors()["the"])
-
-You can also choose a specific dimension for a given vector key:
-
-	emb = Embeddings("glove-twitter", 200)
-
-You can choose these keys (please pm me to suggest other embeddings) :
-
-	"fasttext-wiki-news-1M": [300]
-	"fasttext-wiki-news-1M-subword": [300]
-	"fasttext-crawl-2M": [300]
-	"fasttext-crawl-2M-subword": [300]
-	"glove-6B": [50, 100, 200, 300]
-	"glove-42B": [300]
-	"glove-840B": [300]
-	"glove-twitter-27B": [25, 50, 100, 200]
-	"googlenews": [300]
 
 ## Overlap
 
