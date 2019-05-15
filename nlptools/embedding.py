@@ -11,6 +11,14 @@ import re
 import numpy as np
 import bz2
 
+def bin2txtFile(path):
+	(dir, filename, _, _) = decomposePath(path)
+	from gensim.models.keyedvectors import KeyedVectors
+	model = KeyedVectors.load_word2vec_format(path, binary=True)
+	outputPath = dir + "/" + filename + ".txt"
+	model.save_word2vec_format(outputPath, binary=False)
+	return outputPath
+
 def d2vTokenssToEmbeddings(tokenss, model, doLower=False, logger=None, verbose=True):
     if isinstance(tokenss[0], str):
         tokenss = [tokenss]
@@ -62,9 +70,187 @@ def tokensToEmbedding(tokens, wordVectors=None, operation='sum', removeDuplicate
         print(vectors.shape)
         return vectors
 
+
+WORD_EMBEDDINGS_RESSOURCES = \
+{
+	"fasttext-wiki-news-1M": ("https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M.vec.zip", [300]),
+	"fasttext-wiki-news-1M-subword": ("https://dl.fbaipublicfiles.com/fasttext/vectors-english/wiki-news-300d-1M-subword.vec.zip", [300]),
+	"fasttext-crawl-2M": ("https://dl.fbaipublicfiles.com/fasttext/vectors-english/crawl-300d-2M.vec.zip", [300]),
+	"fasttext-crawl-2M-subword": ("https://dl.fbaipublicfiles.com/fasttext/vectors-english/crawl-300d-2M-subword.zip", [300]),
+	"glove-6B": ("http://nlp.stanford.edu/data/glove.6B.zip", [50, 100, 200, 300]),
+	"glove-42B": ("http://nlp.stanford.edu/data/glove.42B.300d.zip", [300]),
+	"glove-840B": ("http://nlp.stanford.edu/data/glove.840B.300d.zip", [300]),
+	"glove-twitter-27B": ("http://nlp.stanford.edu/data/glove.twitter.27B.zip", [25, 50, 100, 200]),
+	"googlenews": ("https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz", [300]),
+}
+class EmbeddingsLoader():
+	def __init__\
+	(
+		self,
+		key="glove-6B",
+		dimension=None,
+		dataDir=None,
+		logger=None,
+		verbose=True,
+	):
+		self.logger = logger
+		self.verbose = verbose
+		self.dataDir = dataDir
+		if self.dataDir is None:
+			self.dataDir = tmpDir(self.__class__.__name__)
+		self.key = self.__keyPatternToKey(key)
+		self.location, availableDimensions = WORD_EMBEDDINGS_RESSOURCES[self.key]
+		self.dimension = dimension
+		if self.dimension is None:
+			self.dimension = 100 if 100 in availableDimensions else availableDimensions[0]
+		else:
+			if self.dimension not in availableDimensions:
+				raise Exception("Please choose a dimension in " + str(availableDimensions) + " for " + self.key)
+		self.multipartsDir = self.dataDir + "/" + key
+		self.multipartsDir += "-dim" + str(self.dimension)
+		self.multipartsDir += "-multiparts"
+		self.vectors = None
+	
+	def __keyPatternToKey(self, keyPattern):
+		key = None
+		for current in WORD_EMBEDDINGS_RESSOURCES.keys():
+			if re.search(keyPattern, current):
+				key = current
+				break
+		if key is None:
+			raise Exception("We didn't found the pattern " + key + " in " + str(self.locations.keys()))
+		return key
+
+	def isLower(self):
+		for word in self.vectors.keys():
+			if word.lower() != word:
+				return False
+		return True
+
+	def checkDimension(self):
+		assert len(self.vectors["the"] == self.dimension)
+
+	def __download(self):
+		if not isDir(self.multipartsDir) or len(sortedGlob(self.multipartsDir + "/*")) == 0:
+			if self.location.startswith("http"):
+				log("Downloading " + self.key + " from " + str(self.location))
+				downloadedFile = download(self.location, skipIfExists=True)
+				if decomposePath(downloadedFile)[2] in  ["zip", "bz"]:
+					log("Extracting " + downloadedFile, self)
+					extractedThing = extract(downloadedFile, destinationDir=tmpDir("downloads"))
+					if decomposePath(downloadedFile)[2] == "bin":
+						log("Converting the bin file to a txt file format...", self)
+						newExtractedThing = bin2txtFile(extractedThing)
+						if ".bin" in extractedThing: rm(extractedThing, secure=False)
+						extractedThing = newExtractedThing
+					if isFile(extractedThing):
+						extractedFile = extractedThing
+					elif isDir(extractedThing):
+						try:
+							extractedFile = sortedGlob(extractedThing + "/*" + str(self.dimension) + "*")[0]
+						except:
+							extractedFile = sortedGlob(extractedThing + "/*")[0]
+					else:
+						raise Exception("Cannot extract " + downloadedFile)
+					log("Generating multi-parts of " + extractedFile + "...", self)
+					fileToMultiParts(extractedFile, outputDir=self.multipartsDir)
+					log(self.key + " done.", self)
+					rm(extractedThing, minSlashCount=4)
+				else:
+					raise Exception("Not yet implemented")
+				remove(downloadedFile, minSlashCount=4)
+			else:
+				raise Exception("Not yet implemented")
+		else:
+			log("We already generated multiparts dir of " + self.key + ".", self)
+
+	def load(self, maxWords=None):
+		"""
+			This function return a dict mapping words and vectors
+		"""
+		if self.vectors is None:
+			self.__download()
+			filesPath = sortedGlob(self.multipartsDir + "/*")
+			if len(filesPath) == 0:
+				raise Exception("Multiparts files not found.")
+			def itemGenerator(filePath, logger=None, verbose=True):
+				opener = open
+				if filesPath[0][-4:] == ".bz2":
+					opener = bz2.open
+				with opener(filePath, 'r') as f:
+					vectors = {}
+					for line in f:
+						try:
+							tokens = line.split()
+							word = tokens[0]
+							values = tokens[1:]
+							assert len(word) > 0
+							assert len(values) > 3
+							vector = np.asarray(values, dtype='float32')
+							yield (word, vector)
+						except:
+							logError("Cannot parse " + str(line), logger, verbose=verbose)
+			mg = MultiprocessingGenerator(filesPath, itemGenerator, logger=self.logger, queueMaxSize=20)
+			self.vectors = dict()
+			count = 0
+			for word, vector in mg:
+				word = byteToStr(word)
+				self.vectors[word] = vector
+				if maxWords is not None and count > maxWords:
+					logWarning("Please kill the python script because zombies process remains...", self)
+					break
+				count += 1
+			self.checkDimension()
+		return self.vectors
+
+
+def test1():
+	loader = EmbeddingsLoader("googlenews", None)
+	wordVectors = loader.load()
+	print(wordVectors["the"])
+	wordVectors = loader.load()
+	wordVectors = loader.load()
+	print(wordVectors["the"])
+	print(loader.isLower())
+
+
+if __name__ == '__main__':
+	test1()
+
+
+
+
+
+
+
+
+
+
+
+
+############################ OLD ############################
+
+
+
+
+def example_old():
+	wordVectors = getWordVectorsSingleton().load("glove-6B" if hjlat() else "glove-840B")
+
+def test2_old():
+	wv = WordVectors()
+	data = wv.load()
+	print(reducedLTS(list(data.items())))
+
+def test1_old():
+	vectors = getWordVectorsSingleton().load("twitterglove-27B.300d" if hjlat() else "glove-840B")
+	print(vectors["the"])
+
+
+
 wordVectorsSingleton = None
 def getWordVectorsSingleton(*args, **kwargs):
 	global wordVectorsSingleton
+	print("DEPRECATED getWordVectorsSingleton")
 	if wordVectorsSingleton is None:
 		wordVectorsSingleton = WordVectors(*args, **kwargs)
 	return wordVectorsSingleton
@@ -81,6 +267,7 @@ class WordVectors():
 		logger=None,
 		verbose=True
 	):
+		print("DEPRECATED getWordVectorsSingleton")
 		self.logger = logger
 		self.verbose = verbose
 		self.dataDir = dataDir
@@ -93,7 +280,7 @@ class WordVectors():
 			"glove-6B": "http://nlp.stanford.edu/data/glove.6B.zip",
 			"glove-42B.300d": "http://nlp.stanford.edu/data/glove.42B.300d.zip",
 			"glove-840B.300d": "http://nlp.stanford.edu/data/glove.840B.300d.zip",
-			"twitterglove-27B.300d": "http://nlp.stanford.edu/data/glove.twitter.27B.zip",
+			"twitterglove-27B": "http://nlp.stanford.edu/data/glove.twitter.27B.zip",
 			"word2vec": homeDir() + "/Downloads/word2vec.zip",
 		}
 		self.cache = SerializableDict\
@@ -190,18 +377,3 @@ class WordVectors():
 				count += 1
 			self.cache[keyPattern] = data
 			return data
-
-def example():
-	wordVectors = getWordVectorsSingleton().load("glove-6B" if hjlat() else "glove-840B")
-
-def test2():
-	wv = WordVectors()
-	data = wv.load()
-	print(reducedLTS(list(data.items())))
-
-def test1():
-	vectors = getWordVectorsSingleton().load("twitterglove-27B.300d" if hjlat() else "glove-840B")
-	print(vectors["the"])
-
-if __name__ == '__main__':
-	test1()
