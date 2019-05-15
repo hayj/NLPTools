@@ -106,7 +106,7 @@ class EmbeddingsLoader():
 		else:
 			if self.dimension not in availableDimensions:
 				raise Exception("Please choose a dimension in " + str(availableDimensions) + " for " + self.key)
-		self.multipartsDir = self.dataDir + "/" + key
+		self.multipartsDir = self.dataDir + "/" + self.key
 		self.multipartsDir += "-dim" + str(self.dimension)
 		self.multipartsDir += "-multiparts"
 		self.vectors = None
@@ -135,7 +135,7 @@ class EmbeddingsLoader():
 			if self.location.startswith("http"):
 				log("Downloading " + self.key + " from " + str(self.location))
 				downloadedFile = download(self.location, skipIfExists=True)
-				if decomposePath(downloadedFile)[2] in  ["zip", "bz"]:
+				if decomposePath(downloadedFile)[2] in  ["zip", "bz", "gz"]:
 					log("Extracting " + downloadedFile, self)
 					extractedThing = extract(downloadedFile, destinationDir=tmpDir("downloads"))
 					if decomposePath(downloadedFile)[2] == "bin":
@@ -205,7 +205,7 @@ class EmbeddingsLoader():
 
 
 def test1():
-	loader = EmbeddingsLoader("googlenews", None)
+	loader = EmbeddingsLoader("google", None)
 	wordVectors = loader.load()
 	print(wordVectors["the"])
 	wordVectors = loader.load()

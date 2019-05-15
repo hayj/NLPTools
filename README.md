@@ -67,7 +67,7 @@ This tool provide usefull functin to load and handle word embeddings.
 
 Load GloVe vectors:
 
-	loader = EmbeddingsLoader("googlenews")
+	loader = EmbeddingsLoader("glove")
 	wordVectors = loader.load()
 
 **How it works :** all vectors will be downloaded and stored in a tmp directory (in case of googlenews vector, it will convert the bin format to a compressed txt format). So the next time you wil load vectors, it will automatically load vectors from disk if it was already downloaded.
