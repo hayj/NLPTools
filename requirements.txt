@@ -1,5 +1,4 @@
 nltk
-hjsystemtools
 langdetect
 unidecode
 guess_language-spirit
