@@ -22,7 +22,7 @@ Load GloVe vectors:
 	emb = Embeddings("glove")
 	wordVectors = emb.getVectors()
 
-**How it works :** all vectors will be downloaded and stored in a tmp directory (in case of googlenews vector, it will convert the bin format to a compressed txt format). So the next time you wil load vectors, it will automatically load vectors from disk if it was already downloaded.
+**How it works :** all vectors will be downloaded and stored in a tmp directory (in case of googlenews vector, it will convert the bin format to a compressed txt format). So the next time you wil load vectors, it will automatically load vectors from disk if it was already downloaded).
 
 Print informations about loaded vectors:
 
@@ -33,7 +33,7 @@ You can also choose a specific dimension for a given vector key:
 
 	emb = Embeddings("glove-twitter", 200)
 
-You can choose these keys (please pm me to suggest other embeddings) :
+You can choose these keys/dimensions (please pm me to suggest other embeddings) :
 
 	"fasttext-wiki-news-1M": [300]
 	"fasttext-wiki-news-1M-subword": [300]
