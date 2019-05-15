@@ -138,7 +138,7 @@ class EmbeddingsLoader():
 				if decomposePath(downloadedFile)[2] in  ["zip", "bz", "gz"]:
 					log("Extracting " + downloadedFile, self)
 					extractedThing = extract(downloadedFile, destinationDir=tmpDir("downloads"))
-					if decomposePath(downloadedFile)[2] == "bin":
+					if decomposePath(extractedThing)[2] == "bin":
 						log("Converting the bin file to a txt file format...", self)
 						newExtractedThing = bin2txtFile(extractedThing)
 						if ".bin" in extractedThing: rm(extractedThing, secure=False)
