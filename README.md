@@ -61,6 +61,38 @@ Remove urls:
 
 And other parameters like `replaceCurrencyLevel`, `replaceSocialLevel`, `replaceFunctionLevel`... You will also find others functions for post-tokenization processing etc.
 
+## Embeddings
+
+This tool provide usefull functin to load and handle word embeddings.
+
+Load GloVe vectors:
+
+	loader = EmbeddingsLoader("googlenews")
+	wordVectors = loader.load()
+
+**How it works :** all vectors will be downloaded and stored in a tmp directory (in case of googlenews vector, it will convert the bin format to a compressed txt format). So the next time you wil load vectors, it will automatically load vectors from disk if it was already downloaded.
+
+Print informations about loaded vectors:
+
+	print(loader.isLower())
+	print(wordVectors["the"])
+
+You can also choose a specific dimension for a given vector key:
+
+	loader = EmbeddingsLoader("glove-twitter", 200)
+
+You can choose these keys (please pm me to suggest other embeddings) :
+
+	"fasttext-wiki-news-1M": [300]
+	"fasttext-wiki-news-1M-subword": [300]
+	"fasttext-crawl-2M": [300]
+	"fasttext-crawl-2M-subword": [300]
+	"glove-6B": [50, 100, 200, 300]
+	"glove-42B": [300]
+	"glove-840B": [300]
+	"glove-twitter-27B": [25, 50, 100, 200]
+	"googlenews": [300]
+
 ## Overlap
 
 Get your data:
