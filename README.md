@@ -43,7 +43,7 @@ You can choose these keys/dimensions (please pm me to suggest other embeddings) 
 	"glove-42B": [300]
 	"glove-840B": [300]
 	"glove-twitter-27B": [25, 50, 100, 200]
-	"googlenews": [300]
+	"word2vec-googlenews": [300]
 
 
 ## Preprocessing of text
