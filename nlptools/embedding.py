@@ -190,7 +190,7 @@ class Embeddings():
 							yield (word, vector)
 						except:
 							logError("Cannot parse " + str(line), logger, verbose=verbose)
-			mg = MultiprocessingGenerator(filesPath, itemGenerator, logger=self.logger, queueMaxSize=20)
+			mg = MultiprocessingGenerator(filesPath, itemGenerator, logger=self.logger, queueMaxSize=20, verbose=self.verbose)
 			self.vectors = dict()
 			count = 0
 			for word, vector in mg:
