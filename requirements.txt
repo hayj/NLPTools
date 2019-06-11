@@ -6,3 +6,4 @@ pyenchant
 emoji
 spacy
 mosestokenizer
+gensim
