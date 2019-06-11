@@ -105,7 +105,7 @@ setup(
     install_requires=install_requires,
     dependency_links=dependency_links,
     
-    # For handle the MANIFEST.in:
+    # To handle the MANIFEST.in:
     include_package_data=True,
 
     # The url to the official repo:
