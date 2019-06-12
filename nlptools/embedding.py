@@ -92,6 +92,7 @@ class Embeddings():
 		dataDir=None,
 		logger=None,
 		verbose=True,
+		doMultiprocessing=True,
 	):
 		self.logger = logger
 		self.verbose = verbose
@@ -110,6 +111,7 @@ class Embeddings():
 		self.multipartsDir += "-dim" + str(self.dimension)
 		self.multipartsDir += "-multiparts"
 		self.vectors = None
+		self.doMultiprocessing = doMultiprocessing
 	
 	def __keyPatternToKey(self, keyPattern):
 		key = None
@@ -190,7 +192,14 @@ class Embeddings():
 							yield (word, vector)
 						except:
 							logError("Cannot parse " + str(line), logger, verbose=verbose)
-			mg = MultiprocessingGenerator(filesPath, itemGenerator, logger=self.logger, queueMaxSize=20, verbose=self.verbose)
+			if self.doMultiprocessing:
+				mg = MultiprocessingGenerator(filesPath, itemGenerator, logger=self.logger, queueMaxSize=20, verbose=self.verbose)
+			else:
+				def itGenWrapper(filesPath, itemGenerator, logger=None, verbose=True):
+					for filePath in pb(filesPath, logger=logger, verbose=verbose):
+						for current in itemGenerator(filePath, logger=logger, verbose=verbose):
+							yield current
+				mg = itGenWrapper(filesPath, itemGenerator, logger=self.logger, verbose=self.verbose)
 			self.vectors = dict()
 			count = 0
 			for word, vector in mg:
@@ -205,7 +214,7 @@ class Embeddings():
 
 
 def test1():
-	loader = Embeddings("google", None)
+	loader = Embeddings("glove-6B", None, doMultiprocessing=False)
 	wordVectors = loader.getVectors()
 	print(wordVectors["the"])
 	wordVectors = loader.getVectors()
