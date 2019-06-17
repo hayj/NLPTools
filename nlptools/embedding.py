@@ -129,6 +129,12 @@ class Embeddings():
 				return False
 		return True
 
+	def hasPunct(self):
+		if "." in self.vectors:
+			return True
+		else:
+			return False
+
 	def checkDimension(self):
 		assert len(self.vectors["the"] == self.dimension)
 
