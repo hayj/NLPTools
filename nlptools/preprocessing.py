@@ -188,31 +188,33 @@ def preprocess\
 	doReduceCharSequences=False,
 	charSequencesMaxLength=3,
 
-    replaceUnknownChars=False,
-    unknownReplacer=" ",
+	replaceUnknownChars=False,
+	unknownReplacer=" ",
 
-    replacePunctLevel=None,
-    punctReplacer=" ",
-    
-    replaceQuoteLevel=None,
-    quoteReplacer=" ",
-    
-    replaceCurrencyLevel=None,
-    currencyReplacer=" ",
-    
-    replaceSocialLevel=None,
-    socialReplacer=" ",
+	replacePunctLevel=None,
+	punctReplacer=" ",
 
-    replaceFunctionLevel=None,
-    functionReplacer=" ",
+	replaceQuoteLevel=None,
+	quoteReplacer=" ",
 
-    doSpecialMap= False,
+	replaceCurrencyLevel=None,
+	currencyReplacer=" ",
 
-    doNormalizeEmojis= False,
+	replaceSocialLevel=None,
+	socialReplacer=" ",
 
-    doTokenizingHelp= False,
+	replaceFunctionLevel=None,
+	functionReplacer=" ",
+
+	doSpecialMap= False,
+
+	doNormalizeEmojis= False,
+
+	doTokenizingHelp= False,
 ):
 	"""
+		If you set `replacePunctLevel` to `None`, the function will not remove any punct char. If you set it to 0, it will remove all in `["./:!?;,()", "<>[\]*—", "|{}~^"]`, 1 will remove all in `["<>[\]*—", "|{}~^"]` and >= 2 will remove all in `["|{}~^"]`
+
 		This function will convert all special chars (accents...) to ascii equivalent using unidecode. It will replace special usage of `` ´´ by it's equivalent, will replace '' by a doublequote etc. This function will also reduce blanks to unique space but will keep new lines. It will strip the string, remove the html.
 		You can path a list of string or 
 
@@ -284,7 +286,6 @@ def preprocess\
 				(replaceFunctionLevel, functionChars, functionReplacer),
 			]:
 				if level is not None:
-					# print("aaaaaaaaaaaa")
 					if level > len(charsList):
 						level = len(charsList)
 					elif level < 0:
@@ -293,9 +294,7 @@ def preprocess\
 					for i in range(level, len(charsList)):
 						removeRegex += charsList[i]
 					if len(removeRegex) > 0:
-						# print(text)
 						text = re.sub("[" + removeRegex + "]", replacer, text)
-						# print(text)
 
 			if doReduceCharSequences:
 				text = reduceCharSequences(text, maxLength=charSequencesMaxLength)
