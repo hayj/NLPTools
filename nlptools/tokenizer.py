@@ -6,6 +6,7 @@ from enum import Enum
 import spacy
 from mosestokenizer import MosesDetokenizer
 from nlptools.utils import *
+import copy
 
 """
     Spacy is the best tokenizer
@@ -103,14 +104,11 @@ def test2():
 
 
 multiReplacerSingleton = None
-detokenizeSingleton = None
+# detokenizeSingleton = None
 def detokenize(wordsOrSentences, joinSentences=True, logger=None, verbose=True):
-    global multiReplacerSingleton, detokenizeSingleton
+    global multiReplacerSingleton
+    wordsOrSentences = copy.deepcopy(wordsOrSentences)
     words = wordsOrSentences
-    def __detokenizeWords(words):
-        text = detokenizeSingleton(words)
-        text = multiReplacerSingleton.replace(text)
-        return text
     if multiReplacerSingleton is None:
         repls = \
         {
@@ -125,25 +123,61 @@ def detokenize(wordsOrSentences, joinSentences=True, logger=None, verbose=True):
             " n't": "n't",
         }
         multiReplacerSingleton = MultiReplacer(repls)
-    if detokenizeSingleton is None:
-        detokenizeSingleton = MosesDetokenizer('en')
-    if words is None or len(words) == 0:
-        return ""
-    if isinstance(words[0], list):
-        sentences = words
-        for i in range(len(sentences)):
-            words = sentences[i]
-            text = __detokenizeWords(words)
-            sentences[i] = text
-        if joinSentences:
-            return "\n".join(sentences)
+    with MosesDetokenizer('en') as detokenizeSingleton:
+        def __detokenizeWords(words):
+            text = detokenizeSingleton(words)
+            text = multiReplacerSingleton.replace(text)
+            return text
+        if words is None or len(words) == 0:
+            return ""
+        if isinstance(words[0], list):
+            sentences = words
+            for i in range(len(sentences)):
+                words = sentences[i]
+                text = __detokenizeWords(words)
+                sentences[i] = text
+            if joinSentences:
+                return "\n".join(sentences)
+            else:
+                return sentences
+        elif isinstance(words[0], str):
+            return __detokenizeWords(words)
         else:
-            return sentences
-    elif isinstance(words[0], str):
-        return __detokenizeWords(words)
-    else:
-        logError("words[0] must be either a list (so words are sentences)", logger, verbose=verbose)
-        return None
+            logError("words[0] must be either a list (so words are sentences)", logger, verbose=verbose)
+            return None
+
+
+
+# multiReplacerSingleton = None
+# detokenizeSingleton = None
+# def detokenize(wordsOrSentences, joinSentences=True, logger=None, verbose=True):
+#     global detokenizeSingleton
+#     wordsOrSentences = copy.deepcopy(wordsOrSentences)
+#     words = wordsOrSentences
+#     detokenizeSingleton = MosesDetokenizer('en')
+#     if words is None or len(words) == 0:
+#         return ""
+#     if isinstance(words[0], list):
+#         sentences = words
+#         for i in range(len(sentences)):
+#             words = sentences[i]
+#             text = detokenizeSingleton(words)
+#             sentences[i] = text
+#         if joinSentences:
+#             detokenizeSingleton.close()
+#             return "\n".join(sentences)
+#         else:
+#             detokenizeSingleton.close()
+#             return sentences
+#     elif isinstance(words[0], str):
+#         detokenizeSingleton.close()
+#         return detokenizeSingleton(words)
+#     else:
+#         logError("words[0] must be either a list (so words are sentences)", logger, verbose=verbose)
+#         detokenizeSingleton.close()
+#         return None
+
+
 
 def detokenizerTest():
     s1 = ["I", "am", "the", "thing", ",", "you", "did", "n't", "do", ".", "Yeah", "!"]
@@ -160,6 +194,7 @@ def detokenizerTest():
 
 def test2():
     print(wordTokenize("Hello 'things' and ''tool'' my name is \"Abi\". I like this!"))
+
 
 
 if __name__ == "__main__":

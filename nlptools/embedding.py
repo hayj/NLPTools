@@ -93,12 +93,18 @@ class Embeddings():
 		logger=None,
 		verbose=True,
 		doMultiprocessing=True,
+		fileRatio=None,
 	):
 		self.logger = logger
 		self.verbose = verbose
 		self.dataDir = dataDir
 		if self.dataDir is None:
 			self.dataDir = tmpDir(self.__class__.__name__)
+		self.fileRatio = fileRatio
+		if key == "test":
+			key = "glove-6B"
+			if self.fileRatio is None:
+				self.fileRatio = 0.1
 		self.key = self.__keyPatternToKey(key)
 		self.location, availableDimensions = WORD_EMBEDDINGS_RESSOURCES[self.key]
 		self.dimension = dimension
@@ -181,6 +187,8 @@ class Embeddings():
 			filesPath = sortedGlob(self.multipartsDir + "/*")
 			if len(filesPath) == 0:
 				raise Exception("Multiparts files not found.")
+			if self.fileRatio is not None:
+				filesPath = filesPath[:int(len(filesPath) * self.fileRatio)]
 			def itemGenerator(filePath, logger=None, verbose=True):
 				opener = open
 				if filesPath[0][-4:] == ".bz2":
@@ -228,9 +236,18 @@ def test1():
 	print(wordVectors["the"])
 	print(loader.isLower())
 
+def test2():
+	loader = Embeddings("test")
+	wordVectors = loader.getVectors()
+	print(wordVectors["the"])
+	wordVectors = loader.getVectors()
+	wordVectors = loader.getVectors()
+	print(wordVectors["the"])
+	print(loader.isLower())
+
 
 if __name__ == '__main__':
-	test1()
+	test2()
 
 
 

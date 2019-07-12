@@ -206,7 +206,7 @@ def preprocess\
 	replaceFunctionLevel=None,
 	functionReplacer=" ",
 
-	doSpecialMap= False,
+	doSpecialMap=False,
 
 	doNormalizeEmojis= False,
 
