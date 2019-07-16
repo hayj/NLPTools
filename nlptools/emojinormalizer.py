@@ -62,3 +62,32 @@ def normalizeEmojis(text, logger=None, verbose=True):
 	if emojiNormalizerSingleton is None:
 		emojiNormalizerSingleton = EmojiNormalizer(logger=logger, verbose=verbose)
 	return emojiNormalizerSingleton.replace(text)
+
+
+emojisSet = None
+def getEmojisSet():
+	global emojisSet
+	if emojisSet is None:
+		emojisSet = set()
+		for line in fileToStrList(getExecDir(__file__) + "/data/emojis/emojis-ascii-to-utf8.txt"):
+			try:
+				emoji = line.split("\t")[1]
+				if isEmoji(emoji):
+					emojisSet.add(emoji)
+			except: pass
+	return emojisSet
+
+
+emojisASCIISet = None
+def getASCIIEmojisSet():
+	global emojisASCIISet
+	if emojisASCIISet is None:
+		text = " ".join(fileToStrList(getExecDir(__file__) + "/data/emojis/emojis-ascii-to-utf8.txt"))
+		emojisASCIISet = text.split()
+		sub = {"|", " ", "\t", "\n"}.union(getEmojisSet())
+		emojisASCIISet = substract(emojisASCIISet, sub)
+	return emojisASCIISet
+
+
+if __name__ == '__main__':
+	printLTS(getASCIIEmojisSet())

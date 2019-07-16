@@ -269,7 +269,8 @@ def preprocess\
 					+ "".join(quoteChars) \
 					+ "".join(currencyChars) \
 					+ "".join(socialChars) \
-					+ "".join(functionChars)
+					+ "".join(functionChars) \
+					+ "".join(list(getEmojisSet()))
 					allowedRegex = "[" + allowedChars + "]"
 					notAllowedRegex = "[^" + allowedChars + "]"
 					# print(notAllowedRegex)

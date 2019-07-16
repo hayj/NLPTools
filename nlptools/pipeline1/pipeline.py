@@ -253,9 +253,20 @@ def cleanTokens(taggedTokens, maxTokenLength=200, logger=None, verbose=True):
 		return None
 
 
+
 def removeTokenType(typedSentences):
-	if typedSentences is None:
-		return None
+	if typedSentences is None or len(typedSentences) == 0:
+		return typedSentences
+	if isinstance(typedSentences[0], list):
+		return removeTokenTypeSentences(typedSentences)
+	else:
+		currentTokens = []
+		for token, _ in typedSentences:
+			currentTokens.append(token)
+		return currentTokens
+
+
+def removeTokenTypeSentences(typedSentences):
 	sentences = []
 	for typedTokens in typedSentences:
 		currentTokens = []
