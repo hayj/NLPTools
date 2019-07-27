@@ -87,6 +87,7 @@ WORD_EMBEDDINGS_RESSOURCES = \
 	"glove-840B": ("http://nlp.stanford.edu/data/glove.840B.300d.zip", [300]),
 	"glove-twitter-27B": ("http://nlp.stanford.edu/data/glove.twitter.27B.zip", [25, 50, 100, 200]),
 	"word2vec-googlenews": ("https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz", [300]),
+	"twittermbti": (None, [100]),
 }
 
 KNOWN_TOKENS = {".", "/", ":", "!", "?", ";", ",", "(", ")", "<", ">", "[", "]", "*", "—", "|", "{", "}", "~", "^",
