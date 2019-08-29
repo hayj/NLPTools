@@ -133,6 +133,11 @@ class Embeddings():
 					assert isDir(self.dataDir)
 					self.dataDir += "/" + self.__class__.__name__
 					mkdir(self.dataDir)
+				elif labia():
+					self.dataDir = homeDir() + "/asa"
+					assert isDir(self.dataDir)
+					self.dataDir += "/" + self.__class__.__name__
+					mkdir(self.dataDir)
 				else:
 					self.dataDir = tmpDir(self.__class__.__name__)
 			except: 
