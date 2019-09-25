@@ -2,7 +2,6 @@ nltk
 langdetect
 unidecode
 guess_language-spirit
-pyenchant
 emoji
 spacy
 mosestokenizer

@@ -10,8 +10,15 @@
 
 	git clone https://github.com/hayj/NLPTools.git
 	pip install ./NLPTools/wm-dist/*.tar.gz
+	pip install pyenchant
 
 Or use this script: <https://github.com/hayj/Bash/blob/master/hjupdate.sh>
+
+## In case of error when toolwrapper dependency fail
+
+	git clone https://github.com/luismsgomes/toolwrapper
+	# remove first 5 lines of src/toolwrapper.py
+	python setup.py install
 
 ## Embeddings
 
