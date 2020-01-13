@@ -14,11 +14,21 @@
 
 Or use this script: <https://github.com/hayj/Bash/blob/master/hjupdate.sh>
 
+## Installation of textstat
+
+	git clone https://github.com/shivam5992/textstat.git
+	cd textstat
+	pip install .
+
 ## In case of error when toolwrapper dependency fail
 
 	git clone https://github.com/luismsgomes/toolwrapper
 	# remove first 5 lines of src/toolwrapper.py
 	python setup.py install
+
+## TFIDF
+
+The `nlptools.basics.TFIDF` class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. 
 
 ## Embeddings
 

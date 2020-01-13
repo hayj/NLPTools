@@ -55,6 +55,9 @@ def isEmoji(token):
 	RE_EMOJI = re.compile('^([\U00010000-\U0010ffff]|[\U00002600-\U000026FF])$', flags=re.UNICODE)
 	return RE_EMOJI.match(token)
 
+def isKnownEmoji(token):
+	return token in getEmojisSet()
+
 
 emojiNormalizerSingleton = None
 def normalizeEmojis(text, logger=None, verbose=True):
@@ -90,4 +93,4 @@ def getASCIIEmojisSet():
 
 
 if __name__ == '__main__':
-	printLTS(getASCIIEmojisSet())
+	printLTS(getEmojisSet())

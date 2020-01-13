@@ -1,0 +1,191 @@
+[I 02:26:24.032 NotebookApp] Serving notebooks from local directory: /home/hayj/Drive/Workspace/Python/Utils/NLPTools/nlptools/news
+[I 02:26:24.032 NotebookApp] The Jupyter Notebook is running at:
+[I 02:26:24.033 NotebookApp] http://localhost:9955/
+[I 02:26:24.033 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 02:26:24.200 NotebookApp] 302 GET /tree (127.0.0.1) 0.86ms
+[I 02:26:27.511 NotebookApp] 302 POST /login?next=%2Ftree (127.0.0.1) 1.61ms
+[I 02:26:33.638 NotebookApp] Creating new notebook in 
+[I 02:26:34.758 NotebookApp] Kernel started: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:26:35.380 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:27:10.998 NotebookApp] Saving file at /test.ipynb
+[I 02:27:18.039 NotebookApp] 302 GET /notebooks/test.ipynb (127.0.0.1) 0.85ms
+[I 02:27:20.440 NotebookApp] 302 POST /login?next=%2Fnotebooks%2Ftest.ipynb (127.0.0.1) 2.92ms
+[I 02:27:21.223 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:29:21.164 NotebookApp] Saving file at /test.ipynb
+[I 02:29:45.189 NotebookApp] Saving file at /test.ipynb
+[I 02:29:48.609 NotebookApp] Saving file at /test.ipynb
+[I 02:30:06.489 NotebookApp] Saving file at /test.ipynb
+[I 02:30:11.981 NotebookApp] Saving file at /test.ipynb
+[I 02:30:15.838 NotebookApp] Saving file at /test.ipynb
+[I 02:30:21.912 NotebookApp] Saving file at /test.ipynb
+[I 02:30:28.711 NotebookApp] Saving file at /test.ipynb
+[I 02:30:30.663 NotebookApp] Saving file at /test.ipynb
+[I 02:30:32.844 NotebookApp] Saving file at /test.ipynb
+[I 02:30:35.552 NotebookApp] Saving file at /test.ipynb
+[I 02:30:48.933 NotebookApp] Saving file at /test.ipynb
+[I 02:31:13.434 NotebookApp] Saving file at /test.ipynb
+[I 02:31:21.171 NotebookApp] Saving file at /test.ipynb
+[I 02:32:14.450 NotebookApp] Saving file at /test.ipynb
+[I 02:32:25.012 NotebookApp] Saving file at /test.ipynb
+[I 02:32:35.464 NotebookApp] Saving file at /test.ipynb
+[I 02:32:39.802 NotebookApp] Saving file at /test.ipynb
+[I 02:32:44.507 NotebookApp] Saving file at /test.ipynb
+[I 02:33:21.195 NotebookApp] Saving file at /test.ipynb
+[I 02:35:05.322 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:35:05.836 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:35:21.165 NotebookApp] Saving file at /test.ipynb
+[I 02:36:19.694 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:36:20.449 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:36:38.974 NotebookApp] Saving file at /test.ipynb
+[I 02:36:53.008 NotebookApp] Kernel interrupted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:36:54.445 NotebookApp] Saving file at /test.ipynb
+[I 02:37:28.947 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:37:29.466 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:37:34.213 NotebookApp] Kernel interrupted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:38:30.457 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:38:30.963 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:39:21.172 NotebookApp] Saving file at /test.ipynb
+[I 02:39:38.907 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:39:39.523 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:40:19.868 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:40:20.454 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:40:48.239 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:40:48.685 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 02:41:21.171 NotebookApp] Saving file at /test.ipynb
+[I 10:20:34.937 NotebookApp] Saving file at /test.ipynb
+[I 10:21:20.560 NotebookApp] Saving file at /test.ipynb
+[I 10:23:20.562 NotebookApp] Saving file at /test.ipynb
+[I 10:23:39.457 NotebookApp] Saving file at /test.ipynb
+[I 10:24:33.024 NotebookApp] Saving file at /test.ipynb
+[I 10:24:42.781 NotebookApp] Saving file at /test.ipynb
+[I 10:24:52.675 NotebookApp] Saving file at /test.ipynb
+[I 10:25:01.994 NotebookApp] Saving file at /test.ipynb
+[I 10:25:19.604 NotebookApp] Saving file at /test.ipynb
+[I 10:25:30.620 NotebookApp] Saving file at /test.ipynb
+[I 10:25:36.970 NotebookApp] Saving file at /test.ipynb
+[I 10:26:04.976 NotebookApp] Saving file at /test.ipynb
+[I 10:26:40.562 NotebookApp] Saving file at /test.ipynb
+[I 10:26:54.641 NotebookApp] Saving file at /test.ipynb
+[I 10:27:19.049 NotebookApp] Saving file at /test.ipynb
+[I 10:27:29.431 NotebookApp] Saving file at /test.ipynb
+[I 10:27:40.210 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:27:40.678 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:28:00.724 NotebookApp] Saving file at /test.ipynb
+[I 10:44:15.584 NotebookApp] Saving file at /test.ipynb
+[I 10:54:44.275 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:54:44.883 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:55:24.764 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:55:25.240 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:55:52.288 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:55:52.863 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 10:56:16.827 NotebookApp] Saving file at /test.ipynb
+[I 10:57:53.371 NotebookApp] Saving file at /test.ipynb
+[I 10:58:16.810 NotebookApp] Saving file at /test.ipynb
+[I 10:59:46.627 NotebookApp] Saving file at /test.ipynb
+[I 11:00:16.813 NotebookApp] Saving file at /test.ipynb
+[I 11:03:00.579 NotebookApp] Saving file at /test.ipynb
+[I 11:03:55.118 NotebookApp] Saving file at /test.ipynb
+[I 11:04:16.303 NotebookApp] Saving file at /test.ipynb
+[I 11:04:21.133 NotebookApp] Saving file at /test.ipynb
+[I 11:04:35.871 NotebookApp] Saving file at /test.ipynb
+[I 11:05:04.468 NotebookApp] Saving file at /test.ipynb
+[I 11:05:09.962 NotebookApp] Saving file at /test.ipynb
+[I 11:06:16.813 NotebookApp] Saving file at /test.ipynb
+[I 11:06:44.615 NotebookApp] Saving file at /test.ipynb
+[I 11:06:48.421 NotebookApp] Saving file at /test.ipynb
+[I 11:12:16.816 NotebookApp] Saving file at /test.ipynb
+[I 11:16:17.110 NotebookApp] Saving file at /test.ipynb
+[I 11:36:15.441 NotebookApp] Saving file at /test.ipynb
+[I 11:36:17.031 NotebookApp] Saving file at /test.ipynb
+[I 11:36:53.879 NotebookApp] Saving file at /test.ipynb
+[I 11:37:21.919 NotebookApp] Saving file at /test.ipynb
+[I 11:38:00.422 NotebookApp] Starting buffering for ff6f5359-4b36-4cd7-ade9-367be4d42f60:f6ad66eaa7544542919856eb20d85203
+[I 11:38:01.035 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 11:38:01.676 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 11:38:01.679 NotebookApp] Restoring connection for ff6f5359-4b36-4cd7-ade9-367be4d42f60:f6ad66eaa7544542919856eb20d85203
+[I 11:38:01.679 NotebookApp] Replaying 5 buffered messages
+[I 11:38:16.825 NotebookApp] Saving file at /test.ipynb
+[I 11:38:59.113 NotebookApp] Saving file at /test.ipynb
+[I 11:39:25.574 NotebookApp] Saving file at /test.ipynb
+[I 11:39:55.356 NotebookApp] Saving file at /test.ipynb
+[I 11:40:17.037 NotebookApp] Saving file at /test.ipynb
+[I 11:41:34.426 NotebookApp] Saving file at /test.ipynb
+[I 11:42:17.073 NotebookApp] Saving file at /test.ipynb
+[I 11:42:30.732 NotebookApp] Kernel interrupted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 11:42:39.860 NotebookApp] Saving file at /test.ipynb
+[I 11:42:42.823 NotebookApp] Saving file at /test.ipynb
+[I 11:42:51.041 NotebookApp] Saving file at /test.ipynb
+[I 11:44:16.843 NotebookApp] Saving file at /test.ipynb
+[I 11:46:16.804 NotebookApp] Saving file at /test.ipynb
+[I 11:50:53.746 NotebookApp] Saving file at /test.ipynb
+[I 11:51:03.637 NotebookApp] Saving file at /test.ipynb
+[I 11:51:51.975 NotebookApp] Saving file at /test.ipynb
+[I 11:51:54.037 NotebookApp] Saving file at /test.ipynb
+[I 11:51:58.226 NotebookApp] Saving file at /test.ipynb
+[I 11:51:58.849 NotebookApp] Saving file at /test.ipynb
+[I 11:52:10.168 NotebookApp] Saving file at /test.ipynb
+[I 11:52:16.805 NotebookApp] Saving file at /test.ipynb
+[I 11:52:30.587 NotebookApp] Saving file at /test.ipynb
+[I 11:52:32.642 NotebookApp] Saving file at /test.ipynb
+[I 11:52:50.890 NotebookApp] Saving file at /test.ipynb
+[I 11:53:10.770 NotebookApp] Saving file at /test.ipynb
+[I 11:53:13.175 NotebookApp] Saving file at /test.ipynb
+[I 11:53:20.873 NotebookApp] Saving file at /test.ipynb
+[I 11:53:22.578 NotebookApp] Saving file at /test.ipynb
+[I 11:53:29.889 NotebookApp] Saving file at /test.ipynb
+[I 11:53:32.400 NotebookApp] Saving file at /test.ipynb
+[I 11:53:38.217 NotebookApp] Saving file at /test.ipynb
+[I 11:53:38.681 NotebookApp] Saving file at /test.ipynb
+[I 11:53:40.506 NotebookApp] Saving file at /test.ipynb
+[I 11:53:54.266 NotebookApp] Saving file at /test.ipynb
+[I 11:53:57.473 NotebookApp] Saving file at /test.ipynb
+[I 11:54:08.489 NotebookApp] Saving file at /test.ipynb
+[I 11:54:10.490 NotebookApp] Saving file at /test.ipynb
+[I 11:54:14.977 NotebookApp] Saving file at /test.ipynb
+[I 11:54:16.810 NotebookApp] Saving file at /test.ipynb
+[I 11:54:17.339 NotebookApp] Saving file at /test.ipynb
+[I 11:54:39.509 NotebookApp] Saving file at /test.ipynb
+[I 11:54:43.257 NotebookApp] Saving file at /test.ipynb
+[I 11:54:47.193 NotebookApp] Saving file at /test.ipynb
+[I 11:54:48.908 NotebookApp] Saving file at /test.ipynb
+[I 11:55:00.731 NotebookApp] Saving file at /test.ipynb
+[I 11:55:03.817 NotebookApp] Saving file at /test.ipynb
+[I 11:55:13.426 NotebookApp] Saving file at /test.ipynb
+[I 11:55:18.378 NotebookApp] Saving file at /test.ipynb
+[I 11:55:29.645 NotebookApp] Saving file at /test.ipynb
+[I 11:55:35.378 NotebookApp] Saving file at /test.ipynb
+[I 11:55:37.779 NotebookApp] Saving file at /test.ipynb
+[I 11:55:46.576 NotebookApp] Saving file at /test.ipynb
+[I 11:55:59.634 NotebookApp] Saving file at /test.ipynb
+[I 11:56:16.503 NotebookApp] Kernel interrupted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 11:56:16.883 NotebookApp] Saving file at /test.ipynb
+[I 11:58:12.786 NotebookApp] Saving file at /test.ipynb
+[I 11:58:37.835 NotebookApp] Saving file at /test.ipynb
+[I 11:58:44.630 NotebookApp] Saving file at /test.ipynb
+[I 11:58:46.862 NotebookApp] Saving file at /test.ipynb
+[I 11:59:00.569 NotebookApp] Saving file at /test.ipynb
+[I 11:59:03.474 NotebookApp] Saving file at /test.ipynb
+[I 11:59:05.505 NotebookApp] Saving file at /test.ipynb
+[I 11:59:12.286 NotebookApp] Saving file at /test.ipynb
+[I 11:59:23.032 NotebookApp] Saving file at /test.ipynb
+[I 11:59:32.459 NotebookApp] Saving file at /test.ipynb
+[I 11:59:33.760 NotebookApp] Saving file at /test.ipynb
+[I 11:59:36.166 NotebookApp] Saving file at /test.ipynb
+[I 11:59:43.764 NotebookApp] Kernel interrupted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 12:00:16.821 NotebookApp] Saving file at /test.ipynb
+[I 12:02:10.741 NotebookApp] Saving file at /test.ipynb
+[I 12:04:16.840 NotebookApp] Saving file at /test.ipynb
+[I 12:06:43.588 NotebookApp] Saving file at /test.ipynb
+[I 12:06:46.934 NotebookApp] Saving file at /test.ipynb
+[I 12:06:52.553 NotebookApp] Saving file at /test.ipynb
+[I 12:07:09.077 NotebookApp] Starting buffering for ff6f5359-4b36-4cd7-ade9-367be4d42f60:f6ad66eaa7544542919856eb20d85203
+[I 12:07:09.589 NotebookApp] Kernel restarted: ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 12:07:10.172 NotebookApp] Adapting to protocol v5.1 for kernel ff6f5359-4b36-4cd7-ade9-367be4d42f60
+[I 12:07:10.173 NotebookApp] Restoring connection for ff6f5359-4b36-4cd7-ade9-367be4d42f60:f6ad66eaa7544542919856eb20d85203
+[I 12:07:10.173 NotebookApp] Replaying 6 buffered messages
+[I 12:08:17.056 NotebookApp] Saving file at /test.ipynb
+[I 12:10:17.044 NotebookApp] Saving file at /test.ipynb
+[I 14:03:07.145 NotebookApp] Starting buffering for ff6f5359-4b36-4cd7-ade9-367be4d42f60:f6ad66eaa7544542919856eb20d85203
+[C 14:03:27.340 NotebookApp] received signal 15, stopping
+[I 14:03:27.410 NotebookApp] Shutting down 1 kernel
+[I 14:03:27.511 NotebookApp] Kernel shutdown: ff6f5359-4b36-4cd7-ade9-367be4d42f60

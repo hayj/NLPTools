@@ -28,7 +28,7 @@ def d2vTokenssToEmbeddings(tokenss, model, doLower=False, logger=None, verbose=T
     if isinstance(tokenss[0], str):
         tokenss = [tokenss]
     mtx = None
-    for tokens in pb(tokenss, logger=logger, message="Infering vectors"):
+    for tokens in pb(tokenss, logger=logger, verbose=verbose, message="Infering vectors"):
         if doLower:
             for i in range(len(tokens)):
                 tokens[i] = tokens[i].lower()
@@ -39,7 +39,7 @@ def d2vTokenssToEmbeddings(tokenss, model, doLower=False, logger=None, verbose=T
             mtx = np.vstack((mtx, vector))
     return mtx
 
-def tokensToEmbedding(tokens, wordVectors=None, operation='sum', removeDuplicates=True, doLower=False):
+def tokensToEmbedding(tokens, wordVectors=None, operation='sum', removeDuplicates=True, doLower=False, logger=None, verbose=True):
     """
         This function take tokens (or a list of tokens)
         And a map word->vector
@@ -51,7 +51,7 @@ def tokensToEmbedding(tokens, wordVectors=None, operation='sum', removeDuplicate
         nbDocs = len(tokens)
         mtx = None
         tokens = copy.deepcopy(tokens)
-        for i in range(len(tokens)):
+        for i in pb(list(range(len(tokens))), logger=logger, verbose=verbose):
             currentArray = tokensToEmbedding(tokens[i], wordVectors=wordVectors, operation=operation,
                                           removeDuplicates=removeDuplicates, doLower=doLower)
             if mtx is None:

@@ -6,3 +6,4 @@ emoji
 spacy
 mosestokenizer
 gensim
+-e git://github.com/shivam5992/textstat.git#egg=textstat
