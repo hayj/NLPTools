@@ -1,12 +1,16 @@
 
 # NLPTools
 
-## Dependencies on Ubuntu
+
+
+## Installation (Python 3)
+
+### Dependencies on Ubuntu
 
 	sudo apt-get install libenchant1c2a
 	sudo apt-get install p7zip-full
 
-## Installation (Python 3)
+### Installation of the package
 
 	git clone https://github.com/hayj/NLPTools.git
 	pip install ./NLPTools/wm-dist/*.tar.gz
@@ -14,21 +18,17 @@
 
 Or use this script: <https://github.com/hayj/Bash/blob/master/hjupdate.sh>
 
-## Installation of textstat
+### Installation of textstat
 
 	git clone https://github.com/shivam5992/textstat.git
 	cd textstat
 	pip install .
 
-## In case of error when toolwrapper dependency fail
+### In case of error when toolwrapper dependency fail
 
 	git clone https://github.com/luismsgomes/toolwrapper
 	# remove first 5 lines of src/toolwrapper.py
 	python setup.py install
-
-## TFIDF
-
-The `nlptools.basics.TFIDF` class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. See docstring to learn how to use methods.
 
 ## Embeddings
 
@@ -62,6 +62,9 @@ You can choose these keys/dimensions (please pm me to suggest other embeddings) 
 	"glove-twitter-27B": [25, 50, 100, 200]
 	"word2vec-googlenews": [300]
 
+## TFIDF
+
+The `nlptools.basics.TFIDF` class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. See docstring to learn how to use methods.
 
 ## Preprocessing of text
 
@@ -113,7 +116,6 @@ Remove urls:
 	Pls visit  !!
 
 And other parameters like `replaceCurrencyLevel`, `replaceSocialLevel`, `replaceFunctionLevel`... You will also find others functions for post-tokenization processing etc.
-
 
 ## Overlap
 
@@ -181,7 +183,6 @@ You can get preprocessed document with this method, the preprocessing do char no
 			"tool"
 		]
 	]
-
 
 ## Others
 
