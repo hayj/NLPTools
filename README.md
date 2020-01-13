@@ -28,7 +28,7 @@ Or use this script: <https://github.com/hayj/Bash/blob/master/hjupdate.sh>
 
 ## TFIDF
 
-The `nlptools.basics.TFIDF` class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. 
+The `nlptools.basics.TFIDF` class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. See docstring to learn how to use methods.
 
 ## Embeddings
 
