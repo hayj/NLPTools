@@ -1,6 +1,7 @@
 nltk
 langdetect
 unidecode
+textstat
 guess_language-spirit
 emoji
 spacy

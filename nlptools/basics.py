@@ -309,9 +309,9 @@ class TFIDF:
         logger=None,
         verbose=True,
     ):
-    """
-        This class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. 
-    """
+        """
+            This class is a wrapper of `sklearn.feature_extraction.text.TfidfVectorizer`. It takes documents and generates TFIDF vectors of a given ngrams range. It handle either already tokenized docs for words or already tokenized docs for sentences and words. You can automatically access useful data such as specific TFIDF values using `TFIDFValue(docId, ngram)`, filter sentences that have a high max TFIDF value given a deletion ratio using `removeSentences(deletionRatio)` and so on. 
+        """
         # All vars:
         self.logger = logger
         self.verbose = verbose
@@ -713,3 +713,135 @@ def getOptimalTFIDFThresholds(maxTFIDFs, cumhisto, targetDeletionRatio, interval
         tfidfThresholds[ngrams] = intervals[ngrams][i]
     return tfidfThresholds
 
+
+def filterDocuments(*args, **kwargs):
+    return filterCorpus(*args, **kwargs)
+def filterDocs(*args, **kwargs):
+    return filterCorpus(*args, **kwargs)
+def filterCorpus\
+(
+    docs, minDF=None, maxDF=None,
+    removeEmptySentences=True, removeEmptyDocs=False,
+    allowEmptyDocs=True,
+    emptyDocMessage="A document doesn't have words anymore after filtering.",
+    logger=None, verbose=True, debug=False,
+):
+    """
+        Args:
+            docs: The corpus to filter, can be a list of list of words or a list of list of sentences (which is a list of words).
+            minDF (int or float): Can be a ratio on documents count or a minimum document frequency.
+            maxDF (int or float): Use this arg instead of stop words. Can be a ratio on documents count or a top n most frequent words in terms of document frequency to remove.
+    """
+    # We check the content:
+    assert docs is not None
+    assert docs[0] is not None
+    assert len(docs[0]) > 0
+    # We find if docs are a list of list of words or a list of list of sentences (which is a list of words):
+    isSentences = isinstance(docs[0][0], list)
+    # We calculate doc frequency for all terms:
+    tdf = dict()
+    for doc in docs:
+        if isSentences:
+            doc = set(flattenLists(doc))
+        else:
+            doc = set(doc)
+        for word in doc:
+            if word not in tdf:
+                tdf[word] = 0
+            tdf[word] += 1
+    if debug:
+        bp(sortBy(tdf, index=1, desc=True), logger, 5)
+    # We find blackMinDF:
+    docsCount = len(docs)
+    blackMinDF = set()
+    if minDF is not None:
+        if isinstance(minDF, int) and minDF >= 1:
+            for word, df in tdf.items():
+                if df < minDF:
+                    blackMinDF.add(word)
+        elif isinstance(minDF, float) and minDF >= 0.0 and minDF <= 1.0:
+            for word, df in tdf.items():
+                r = df / docsCount
+                if r < minDF:
+                    blackMinDF.add(word)
+        else:
+            raise Exception('minDF must be an integer >= 1 or a ratio >= 0.0 and <= 1.0')
+    if debug:
+        log("blackMinDF: " + b(blackMinDF, 5), logger, verbose=verbose)
+    if len(blackMinDF) > 0:
+        log("Voc removed because of minDF (" + str(len(blackMinDF)) + " elements):\n" + b(blackMinDF, 4), logger, verbose=verbose)
+    # We find blackMaxDF:
+    blackMaxDF = set()
+    if maxDF is not None:
+        if isinstance(maxDF, int) and maxDF >= 1:
+            blackMaxDF = set([e[0] for e in sortBy(tdf, index=1, desc=True)[:maxDF]])
+        elif isinstance(maxDF, float) and maxDF > 0.0 and maxDF <= 1.0:
+            for word, df in tdf.items():
+                r = df / docsCount
+                if r > maxDF:
+                    blackMaxDF.add(word)
+        else:
+            raise Exception('maxDF must be an integer >= 1 or a ratio > 0.0 and <= 1.0')
+    if debug:
+        log("blackMaxDF: " + b(blackMaxDF, 5), logger, verbose=verbose)
+    if len(blackMaxDF) > 0:
+        log("Voc removed because of maxDF (" + str(len(blackMaxDF)) + " elements):\n" + b(blackMaxDF, 4), logger, verbose=verbose)
+    # We remove words:
+    blackWords = blackMinDF.union(blackMaxDF)
+    log(str(truncateFloat(len(blackWords) / len(tdf) * 100, 2)) + "% of voc will be removed.", logger, verbose=verbose)
+    if isSentences:
+        newDocs = []
+        for doc in docs:
+            newDoc = []
+            for sentence in doc:
+                newSentence = []
+                for word in sentence:
+                    if word not in blackWords:
+                        newSentence.append(word)
+                if not (removeEmptySentences and len(newSentence) == 0):
+                    newDoc.append(newSentence)
+            if len(newDoc) == 0:
+                if not allowEmptyDocs:
+                    raise Exception(emptyDocMessage)
+                else:
+                    logWarning(emptyDocMessage, logger, verbose=verbose)
+            if not (removeEmptyDocs and len(newDoc) == 0):
+                newDocs.append(newDoc)
+        docs = newDocs
+    else:
+        newDocs = []
+        for doc in docs:
+            newDoc = []
+            for word in doc:
+                if word not in blackWords:
+                    newDoc.append(word)
+            if len(newDoc) == 0:
+                if not allowEmptyDocs:
+                    raise Exception(emptyDocMessage)
+                else:
+                    logWarning(emptyDocMessage, logger, verbose=verbose)
+            if not (removeEmptyDocs and len(newDoc) == 0):
+                newDocs.append(newDoc)
+        docs = newDocs
+    # Finally we return the filtered corpus:
+    return docs
+
+def filterCorpusTest1():
+    docs = fileToStrList(getExecDir(__file__) + "/test/testdata/filter-corpus/corpus1.txt")
+    for i in range(len(docs)):
+        docs[i] = docs[i].split()
+    bp(docs, 5)
+    docs = filterCorpus(docs, minDF=0.35, maxDF=None, debug=True)
+    bp(docs, 5)
+def filterCorpusTest2():
+    docs = fileToStrList(getExecDir(__file__) + "/test/testdata/filter-corpus/corpus2.txt")
+    for i in range(len(docs)):
+        docs[i] = docs[i].split(".")
+        for u in range(len(docs[i])):
+            docs[i][u] = docs[i][u].split()
+    bp(docs, 5)
+    docs = filterCorpus(docs, minDF=3, maxDF=10, debug=True, allowEmptyDocs=False)
+    bp(docs, 5)
+
+if __name__ == '__main__':
+    filterCorpusTest1()

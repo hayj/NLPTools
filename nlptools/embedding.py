@@ -72,7 +72,6 @@ def tokensToEmbedding(tokens, wordVectors=None, operation='sum', removeDuplicate
             return np.sum(np.array(vectors), axis=0)
         elif operation == 'mean':
             return np.mean(np.array(vectors), axis=0)
-        print(vectors.shape)
         return vectors
 
 

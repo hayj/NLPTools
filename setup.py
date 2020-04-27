@@ -70,7 +70,10 @@ if os.path.isfile(readmePath):
         import pypandoc
         readme = pypandoc.convert(readmePath, 'rst')
     except(IOError, ImportError):
-        readme = open(readmePath).read()
+        try:
+            readme = open(readmePath).read()
+        except:
+            readme = ""
 
 
 packageName = thelibFolder.lower().split('/')[-1]  
